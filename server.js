@@ -2,7 +2,7 @@ require('dotenv').config();
 const express   = require('express');
 const initSqlJs = require('sql.js');
 const fs        = require('fs');
-const twilio    = require('twilio');
+const { Vonage } = require('@vonage/server-sdk');
 const jwt       = require('jsonwebtoken');
 const path      = require('path');
 
@@ -69,6 +69,12 @@ async function initDb() {
     db = new SQL.Database();
   }
 
+  // Migrate otp_codes table if it still has the old Twilio schema (code + expires_at columns)
+  const otpCols = db.exec("PRAGMA table_info(otp_codes)");
+  if (otpCols.length && otpCols[0].values.some(r => r[1] === 'code')) {
+    db.run('DROP TABLE otp_codes');
+  }
+
   // Schema (each statement separate – sql.js run() handles one at a time)
   const schema = [
     `CREATE TABLE IF NOT EXISTS services (
@@ -104,10 +110,9 @@ async function initDb() {
      )`,
     `CREATE TABLE IF NOT EXISTS otp_codes (
        id           INTEGER PRIMARY KEY AUTOINCREMENT,
-       phone_number TEXT    NOT NULL,
-       code         TEXT    NOT NULL,
-       expires_at   INTEGER NOT NULL,
-       pending_data TEXT    NOT NULL
+       phone_number TEXT NOT NULL,
+       request_id   TEXT NOT NULL,
+       pending_data TEXT NOT NULL
      )`,
   ];
   schema.forEach(s => db.run(s));
@@ -132,15 +137,15 @@ async function initDb() {
   }
 }
 
-// ─── Twilio ───────────────────────────────────────────────────────────────────
-const _sid = process.env.TWILIO_ACCOUNT_SID || '';
-const _tok = process.env.TWILIO_AUTH_TOKEN  || '';
-const _realCreds = _sid.length === 34 && _sid.startsWith('AC') && !/x{4}/i.test(_sid)
-                && _tok.length >= 32 && !/x{4}/i.test(_tok);
-const twilioClient = _realCreds ? twilio(_sid, _tok) : null;
+// ─── Vonage ───────────────────────────────────────────────────────────────────
+const _key = process.env.VONAGE_API_KEY    || '';
+const _sec = process.env.VONAGE_API_SECRET || '';
+const _realCreds = _key.length >= 6 && !/x{4}/i.test(_key)
+                && _sec.length >= 8 && !/x{4}/i.test(_sec);
+const vonage = _realCreds ? new Vonage({ apiKey: _key, apiSecret: _sec }) : null;
 
-if (!twilioClient) {
-  console.warn('\n[DEV MODE] Twilio not configured — OTP codes will be logged to console.\n');
+if (!vonage) {
+  console.warn('\n[DEV MODE] Vonage not configured — OTP codes will be logged to console.\n');
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -233,42 +238,57 @@ app.post('/api/booking/initiate', async (req, res) => {
 
   dbRun('DELETE FROM otp_codes WHERE phone_number = ?', [phone]);
 
-  const code      = Math.floor(100000 + Math.random() * 900000).toString();
-  const expiresAt = Math.floor(Date.now() / 1000) + 600;
-  const pending   = JSON.stringify({ name: name.trim(), phone, service_id, date, time, end_time: endTime });
+  const pending = JSON.stringify({ name: name.trim(), phone, service_id, date, time, end_time: endTime });
 
-  dbRun('INSERT INTO otp_codes (phone_number, code, expires_at, pending_data) VALUES (?,?,?,?)',
-    [phone, code, expiresAt, pending]);
-
-  if (twilioClient) {
+  if (vonage) {
     try {
-      await twilioClient.messages.create({
-        from: `${process.env.TWILIO_WHATSAPP_FROM}`,
-        to:   `whatsapp:${phone}`,
-        body: `Your Barbershop verification code is: *${code}*\nValid for 10 minutes. Do not share this code.`,
+      const result = await vonage.verify.start({
+        number: phone.replace(/^\+/, ''),
+        brand:  'Memos Barbershop',
+        codeLength: 6,
+        workflow_id: 6,
       });
+      if (result.status !== '0') {
+        return res.status(500).json({ error: 'Could not send SMS code. Please check your number and try again.' });
+      }
+      dbRun('INSERT INTO otp_codes (phone_number, request_id, pending_data) VALUES (?,?,?)',
+        [phone, result.requestId, pending]);
     } catch (err) {
-      console.error('Twilio error:', err.message);
-      dbRun('DELETE FROM otp_codes WHERE phone_number = ?', [phone]);
-      return res.status(500).json({ error: 'Could not send WhatsApp code. Please check your number and try again.' });
+      console.error('Vonage error:', err.message);
+      return res.status(500).json({ error: 'Could not send SMS code. Please check your number and try again.' });
     }
   } else {
-    console.log(`\n[DEV] WhatsApp OTP for ${phone}: ${code}\n`);
+    const devCode = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log(`\n[DEV] SMS OTP for ${phone}: ${devCode}\n`);
+    dbRun('INSERT INTO otp_codes (phone_number, request_id, pending_data) VALUES (?,?,?)',
+      [phone, `dev:${devCode}`, pending]);
   }
 
-  res.json({ message: 'Verification code sent via WhatsApp' });
+  res.json({ message: 'Verification code sent via SMS' });
 });
 
-app.post('/api/booking/confirm', (req, res) => {
+app.post('/api/booking/confirm', async (req, res) => {
   const { phone, code } = req.body;
   if (!phone || !code) return res.status(400).json({ error: 'Phone and code are required' });
 
-  const otp = dbGet('SELECT * FROM otp_codes WHERE phone_number = ? AND code = ?', [phone, code]);
+  const otp = dbGet('SELECT * FROM otp_codes WHERE phone_number = ?', [phone]);
   if (!otp) return res.status(400).json({ error: 'Invalid verification code' });
 
-  if (Math.floor(Date.now() / 1000) > otp.expires_at) {
-    dbRun('DELETE FROM otp_codes WHERE id = ?', [otp.id]);
-    return res.status(400).json({ error: 'Code expired. Please go back and request a new one.' });
+  // Dev mode: request_id is prefixed with "dev:"
+  if (otp.request_id.startsWith('dev:')) {
+    if (code !== otp.request_id.slice(4)) {
+      return res.status(400).json({ error: 'Invalid verification code' });
+    }
+  } else {
+    try {
+      const check = await vonage.verify.check(otp.request_id, code);
+      if (check.status !== '0') {
+        return res.status(400).json({ error: 'Invalid verification code' });
+      }
+    } catch (err) {
+      console.error('Vonage check error:', err.message);
+      return res.status(400).json({ error: 'Invalid or expired code. Please go back and request a new one.' });
+    }
   }
 
   const p = JSON.parse(otp.pending_data);
@@ -290,15 +310,50 @@ app.post('/api/booking/confirm', (req, res) => {
     [result.lastInsertRowid]
   );
 
-  if (twilioClient) {
-    const [yr, mn, dy] = p.date.split('-').map(Number);
-    const dateLabel = new Date(yr, mn-1, dy).toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-    twilioClient.messages.create({
-      from: `${process.env.TWILIO_WHATSAPP_FROM}`,
-      to:   `whatsapp:${p.phone}`,
-      body: `Booking confirmed!\n\nService: ${booking.service_name}\nDate: ${dateLabel}\nTime: ${p.time} – ${p.end_time}\n\nSee you then, ${p.name}!`,
-    }).catch(e => console.error('Confirmation WA error:', e.message));
+  res.json({ message: 'Booking confirmed!', booking });
+});
+
+app.get('/api/fb-app-id', (_, res) => {
+  const appId = process.env.FACEBOOK_APP_ID || '';
+  res.json({ appId: (appId && !/x{4}/i.test(appId)) ? appId : null });
+});
+
+app.post('/api/booking/fb-confirm', async (req, res) => {
+  const { access_token, service_id, date, time } = req.body;
+  if (!access_token || !service_id || !date || !time)
+    return res.status(400).json({ error: 'Missing required fields' });
+
+  let fbUser;
+  try {
+    const r = await fetch(
+      `https://graph.facebook.com/me?fields=id,name,email&access_token=${encodeURIComponent(access_token)}`
+    );
+    fbUser = await r.json();
+    if (!fbUser.id || fbUser.error) throw new Error(fbUser.error?.message || 'Invalid token');
+  } catch (err) {
+    console.error('FB verify error:', err.message);
+    return res.status(401).json({ error: 'Facebook verification failed. Please try again.' });
   }
+
+  const slots = getAvailableSlots(date, parseInt(service_id));
+  if (!slots.includes(time))
+    return res.status(400).json({ error: 'This time slot is no longer available. Please choose another.' });
+
+  const service = dbGet('SELECT * FROM services WHERE id = ?', [service_id]);
+  if (!service) return res.status(400).json({ error: 'Service not found' });
+
+  const endTime = fromMin(toMin(time) + service.duration_minutes);
+  const phone   = fbUser.email || `fb:${fbUser.id}`;
+
+  const result = dbRun(
+    'INSERT INTO bookings (customer_name, phone_number, service_id, booking_date, start_time, end_time) VALUES (?,?,?,?,?,?)',
+    [fbUser.name, phone, parseInt(service_id), date, time, endTime]
+  );
+
+  const booking = dbGet(
+    'SELECT b.*, s.name AS service_name, s.price FROM bookings b JOIN services s ON b.service_id = s.id WHERE b.id = ?',
+    [result.lastInsertRowid]
+  );
 
   res.json({ message: 'Booking confirmed!', booking });
 });

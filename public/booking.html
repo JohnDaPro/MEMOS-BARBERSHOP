@@ -88,11 +88,16 @@
         <input type="text" id="name-input" placeholder="John Smith" autocomplete="name">
       </div>
       <div class="field">
-        <label for="phone-input">WhatsApp number</label>
-        <input type="tel" id="phone-input" placeholder="+1 234 567 8901" autocomplete="tel">
-        <p class="field-hint">Include your country code (e.g. +1 for US). We'll send a verification code here.</p>
+        <label for="phone-input">Phone number</label>
+        <input type="tel" id="phone-input" placeholder="+30 691 234 5678" autocomplete="tel">
+        <p class="field-hint">Include your country code (e.g. +30 for Greece). We'll send a verification code via SMS.</p>
       </div>
       <button class="btn btn-primary btn-full" id="send-otp-btn">Send Verification Code</button>
+      <div class="auth-divider" id="fb-divider"><span>or</span></div>
+      <button class="btn btn-fb btn-full" id="fb-login-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Continue with Facebook
+      </button>
       <p class="error-msg" id="details-error"></p>
     </div>
     <button class="btn btn-ghost mt-12" id="back-to-time-btn">← Back</button>

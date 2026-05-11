@@ -359,6 +359,67 @@ function showConfirmation(booking) {
   `).join('');
 }
 
+/* ══════════════════════════════════════════════════════════════════════════════
+   FACEBOOK LOGIN
+══════════════════════════════════════════════════════════════════════════════ */
+const FB_BTN_INNER = `<svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Continue with Facebook`;
+
+let fbReady = null;
+
+async function initFacebook() {
+  try {
+    const { appId } = await fetch('/api/fb-app-id').then(r => r.json());
+    if (!appId) return; // button stays visible; click handler shows friendly error
+    fbReady = new Promise(resolve => {
+      window.fbAsyncInit = function () {
+        FB.init({ appId, cookie: true, xfbml: false, version: 'v19.0' });
+        resolve();
+      };
+    });
+    const s = document.createElement('script');
+    s.src = 'https://connect.facebook.net/en_US/sdk.js';
+    document.head.appendChild(s);
+  } catch { /* button stays visible; click handler shows friendly error */ }
+}
+
+document.getElementById('fb-login-btn').addEventListener('click', async () => {
+  const btn   = document.getElementById('fb-login-btn');
+  const errEl = document.getElementById('details-error');
+  errEl.textContent = '';
+
+  if (!fbReady) { errEl.textContent = 'Facebook login is not set up yet. Please use the SMS option.'; return; }
+
+  btn.disabled   = true;
+  btn.textContent = 'Connecting…';
+
+  try {
+    await fbReady;
+
+    const loginResult = await new Promise(resolve => FB.login(resolve, { scope: 'email' }));
+    if (!loginResult.authResponse) {
+      btn.disabled  = false;
+      btn.innerHTML = FB_BTN_INNER;
+      return;
+    }
+
+    btn.textContent = 'Confirming…';
+    const { booking } = await post('/api/booking/fb-confirm', {
+      access_token: loginResult.authResponse.accessToken,
+      service_id:   state.service.id,
+      date:         state.date,
+      time:         state.time,
+    });
+
+    showConfirmation(booking);
+    goTo(6);
+  } catch (err) {
+    errEl.textContent = err.error || 'Facebook login failed. Please try another method.';
+    btn.disabled  = false;
+    btn.innerHTML = FB_BTN_INNER;
+  }
+});
+
 /* ── Init ──────────────────────────────────────────────────────────────────── */
 initStep1();
 initWorkingDays();
+initFacebook();

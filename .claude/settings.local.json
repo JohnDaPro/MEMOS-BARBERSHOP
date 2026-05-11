@@ -18,7 +18,11 @@
       "mcp__plugin_playwright_playwright__browser_wait_for",
       "mcp__plugin_playwright_playwright__browser_fill_form",
       "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue | Stop-Process -Force; Start-Sleep -Seconds 1; $proc = Start-Process \"node\" -ArgumentList \"server.js\" -WorkingDirectory \"c:\\\\Users\\\\johnp\\\\Desktop\\\\PROJECTS\\\\WEB projects\\\\MEMOS BARBERSHOP V2\" -PassThru -RedirectStandardOutput \"server-out.log\" -RedirectStandardError \"server-err.log\"; Start-Sleep -Seconds 2; $proc.Id)",
-      "mcp__plugin_playwright_playwright__browser_type"
+      "mcp__plugin_playwright_playwright__browser_type",
+      "WebSearch",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

@@ -1,0 +1,25 @@
+# Claude
+.claude
+.playwright-mcp
+
+# Dependencies
+node_modules/
+
+# Environment — contains passwords and secrets, never commit this
+.env
+
+# Database — local data, not for version control
+barbershop.sqlite
+
+# Logs
+*.log
+server-out.log
+server-err.log
+
+# Screenshots from testing
+*.png
+*.jpeg
+
+# OS
+.DS_Store
+Thumbs.db

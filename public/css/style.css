@@ -112,6 +112,26 @@ a { color: inherit; }
 .btn-danger   { background: transparent; color: var(--danger); border-color: var(--danger); }
 .btn-danger:hover { background: var(--danger-soft); }
 
+.btn-fb { background: #1877F2; color: #fff; border-color: #1877F2; gap: 10px; }
+.btn-fb:hover { background: #166FE5; border-color: #166FE5; }
+.btn-fb svg { flex-shrink: 0; }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 .btn-full { width: 100%; }
 
 .btn-sm { padding: 7px 14px; font-size: 12.5px; }
