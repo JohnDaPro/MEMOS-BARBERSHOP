@@ -1,0 +1,48 @@
+- generic [ref=e15]:
+  - generic [ref=e16]:
+    - generic [ref=e17]: The Barbershop
+    - generic [ref=e18]:
+      - generic [ref=e19]: Admin
+      - button "Log out" [ref=e20] [cursor=pointer]
+  - navigation [ref=e21]:
+    - button "Bookings" [ref=e22] [cursor=pointer]
+    - button "Services" [ref=e23] [cursor=pointer]
+    - button "Schedule" [ref=e24] [cursor=pointer]
+    - button "Time Off" [ref=e25] [cursor=pointer]
+  - generic [ref=e27]:
+    - heading "Bookings" [level=2] [ref=e29]
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: Filter by date
+        - textbox "Filter by date" [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]: Filter by status
+        - combobox "Filter by status" [ref=e36]:
+          - option "All statuses" [selected]
+          - option "Confirmed"
+          - option "Cancelled"
+      - button "Filter" [ref=e37] [cursor=pointer]
+      - button "Clear" [ref=e38] [cursor=pointer]
+    - table [ref=e40]:
+      - rowgroup [ref=e41]:
+        - row "Date Time Customer Phone Service Price Status" [ref=e42]:
+          - columnheader "Date" [ref=e43]
+          - columnheader "Time" [ref=e44]
+          - columnheader "Customer" [ref=e45]
+          - columnheader "Phone" [ref=e46]
+          - columnheader "Service" [ref=e47]
+          - columnheader "Price" [ref=e48]
+          - columnheader "Status" [ref=e49]
+          - columnheader [ref=e50]
+      - rowgroup [ref=e51]:
+        - row "Tue, May 12, 2026 10:00 – 10:30 Test User +12345678901 Haircut $25.00 confirmed Cancel" [ref=e52]:
+          - cell "Tue, May 12, 2026" [ref=e53]
+          - cell "10:00 – 10:30" [ref=e54]
+          - cell "Test User" [ref=e55]
+          - cell "+12345678901" [ref=e56]
+          - cell "Haircut" [ref=e57]
+          - cell "$25.00" [ref=e58]
+          - cell "confirmed" [ref=e59]:
+            - generic [ref=e60]: confirmed
+          - cell "Cancel" [ref=e61]:
+            - button "Cancel" [ref=e62] [cursor=pointer]

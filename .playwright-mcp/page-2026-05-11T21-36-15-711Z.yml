@@ -1,0 +1,164 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "The Barbershop" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "About" [ref=e6] [cursor=pointer]:
+          - /url: "#about"
+        - link "Services" [ref=e7] [cursor=pointer]:
+          - /url: "#services"
+        - link "Gallery" [ref=e8] [cursor=pointer]:
+          - /url: "#gallery"
+        - link "Hours" [ref=e9] [cursor=pointer]:
+          - /url: "#hours"
+      - link "Book Now" [ref=e10] [cursor=pointer]:
+        - /url: /booking.html
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - paragraph [ref=e13]: Est. 2020 · [Your City]
+      - heading "The Barbershop" [level=1] [ref=e14]:
+        - text: The
+        - text: Barbershop
+      - paragraph [ref=e15]:
+        - text: Precision cuts. Clean lines.
+        - text: Every single time.
+      - generic [ref=e16]:
+        - link "Book an Appointment" [ref=e17] [cursor=pointer]:
+          - /url: /booking.html
+        - link "Learn More" [ref=e18] [cursor=pointer]:
+          - /url: "#about"
+    - link "Scroll down" [ref=e19] [cursor=pointer]:
+      - /url: "#about"
+      - text: ↓
+  - generic [ref=e21]:
+    - generic [ref=e22]:
+      - paragraph [ref=e23]: About Us
+      - heading "Crafted with care, cut with precision." [level=2] [ref=e24]:
+        - text: Crafted with care,
+        - text: cut with precision.
+      - paragraph [ref=e25]: We are more than a barbershop — we are a space where tradition meets modern technique. Every client who walks through our door is treated to an experience that goes beyond the chair.
+      - paragraph [ref=e26]: From classic fades to sharp line-ups, our team brings years of expertise and genuine passion to every cut. Walk in, unwind, and leave feeling your best.
+      - link "Reserve Your Spot" [ref=e27] [cursor=pointer]:
+        - /url: /booking.html
+    - generic [ref=e29]: Add your photo here
+  - generic [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]: 5+
+      - text: Years in business
+    - generic [ref=e35]:
+      - generic [ref=e36]: 2,000+
+      - text: Happy clients
+    - generic [ref=e38]:
+      - generic [ref=e39]: 100%
+      - text: Satisfaction guarantee
+    - generic [ref=e41]:
+      - generic [ref=e42]: 4.9 ★
+      - text: Average rating
+  - generic [ref=e44]:
+    - paragraph [ref=e45]: What We Offer
+    - heading "Our services" [level=2] [ref=e46]
+    - paragraph [ref=e47]: Every service is performed with precision tools and premium products.
+    - generic [ref=e48]:
+      - link "Hairwash 10 min $5.00 Book →" [ref=e49] [cursor=pointer]:
+        - /url: /booking.html
+        - generic [ref=e50]: Hairwash
+        - generic [ref=e51]:
+          - generic [ref=e52]: 10 min
+          - generic [ref=e53]: $5.00
+        - generic [ref=e54]: Book →
+      - link "Beard Trim 20 min $15.00 Book →" [ref=e55] [cursor=pointer]:
+        - /url: /booking.html
+        - generic [ref=e56]: Beard Trim
+        - generic [ref=e57]:
+          - generic [ref=e58]: 20 min
+          - generic [ref=e59]: $15.00
+        - generic [ref=e60]: Book →
+      - link "Haircut 30 min $25.00 Book →" [ref=e61] [cursor=pointer]:
+        - /url: /booking.html
+        - generic [ref=e62]: Haircut
+        - generic [ref=e63]:
+          - generic [ref=e64]: 30 min
+          - generic [ref=e65]: $25.00
+        - generic [ref=e66]: Book →
+      - link "Haircut & Beard 50 min $35.00 Book →" [ref=e67] [cursor=pointer]:
+        - /url: /booking.html
+        - generic [ref=e68]: Haircut & Beard
+        - generic [ref=e69]:
+          - generic [ref=e70]: 50 min
+          - generic [ref=e71]: $35.00
+        - generic [ref=e72]: Book →
+    - link "Book an Appointment" [ref=e74] [cursor=pointer]:
+      - /url: /booking.html
+  - generic [ref=e76]:
+    - paragraph [ref=e77]: Our Work
+    - heading "The results speak for themselves." [level=2] [ref=e78]:
+      - text: The results speak
+      - text: for themselves.
+    - generic [ref=e79]:
+      - generic [ref=e81]: Photo 1
+      - generic [ref=e83]: Photo 2
+      - generic [ref=e85]: Photo 3
+      - generic [ref=e87]: Photo 4
+      - generic [ref=e89]: Photo 5
+      - generic [ref=e91]: Photo 6
+  - generic [ref=e93]:
+    - generic [ref=e94]:
+      - paragraph [ref=e95]: Opening Hours
+      - heading "When we're open" [level=2] [ref=e96]
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]: Sunday
+          - generic [ref=e100]: Closed
+        - generic [ref=e101]:
+          - generic [ref=e102]: Monday
+          - generic [ref=e103]: 09:00 – 18:00
+        - generic [ref=e104]:
+          - generic [ref=e105]: Tuesday
+          - generic [ref=e106]: 09:00 – 18:00
+        - generic [ref=e107]:
+          - generic [ref=e108]: Wednesday
+          - generic [ref=e109]: 09:00 – 18:00
+        - generic [ref=e110]:
+          - generic [ref=e111]: Thursday
+          - generic [ref=e112]: 09:00 – 18:00
+        - generic [ref=e113]:
+          - generic [ref=e114]: Friday
+          - generic [ref=e115]: 09:00 – 18:00
+        - generic [ref=e116]:
+          - generic [ref=e117]: Saturday
+          - generic [ref=e118]: 09:00 – 14:00
+    - generic [ref=e119]:
+      - paragraph [ref=e120]: Find Us
+      - heading "Come visit" [level=2] [ref=e121]
+      - generic [ref=e122]: Embed your map here
+      - generic [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]: 📍
+          - generic [ref=e126]:
+            - strong [ref=e127]: 123 Barber Street
+            - text: Your City, State 12345
+        - generic [ref=e128]:
+          - generic [ref=e129]: 📞
+          - generic [ref=e130]:
+            - strong [ref=e131]: +1 (234) 567-8901
+            - text: Call or WhatsApp
+        - generic [ref=e132]:
+          - generic [ref=e133]: ✉️
+          - generic [ref=e134]:
+            - strong [ref=e135]: hello@thebarbershop.com
+            - text: We reply within 24 hours
+  - generic [ref=e137]:
+    - paragraph [ref=e138]: Ready?
+    - heading "Book your appointment online in 60 seconds." [level=2] [ref=e139]:
+      - text: Book your appointment
+      - text: online in 60 seconds.
+    - paragraph [ref=e140]: No phone calls. No waiting. Pick your service, choose a time, done.
+    - link "Book Now →" [ref=e141] [cursor=pointer]:
+      - /url: /booking.html
+  - contentinfo [ref=e142]:
+    - generic [ref=e143]:
+      - generic [ref=e144]: The Barbershop
+      - paragraph [ref=e145]: © 2025 The Barbershop. All rights reserved.
+      - link "Admin" [ref=e146] [cursor=pointer]:
+        - /url: /admin.html

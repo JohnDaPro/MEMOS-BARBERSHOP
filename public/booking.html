@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment — The Barbershop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container inner">
+    <a href="/" class="brand" style="text-decoration:none">The Barbershop</a>
+    <a href="/admin.html" class="header-link">Admin</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Step indicator -->
+  <div class="step-indicator" id="step-indicator">
+    <div class="step-dot active" data-step="1">
+      <div class="dot"></div>
+      <div class="dot-label">Service</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="2">
+      <div class="dot"></div>
+      <div class="dot-label">Date</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="3">
+      <div class="dot"></div>
+      <div class="dot-label">Time</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="4">
+      <div class="dot"></div>
+      <div class="dot-label">Details</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-dot" data-step="5">
+      <div class="dot"></div>
+      <div class="dot-label">Verify</div>
+    </div>
+  </div>
+
+  <!-- ── Step 1: Choose service ─────────────────────────── -->
+  <section class="booking-step active" id="step-1">
+    <h2 class="step-title">Choose a service</h2>
+    <div class="service-grid" id="service-grid">
+      <div class="loading-text">Loading services…</div>
+    </div>
+  </section>
+
+  <!-- ── Step 2: Choose date ────────────────────────────── -->
+  <section class="booking-step" id="step-2">
+    <h2 class="step-title">Choose a date</h2>
+    <div class="card">
+      <div class="field">
+        <label for="date-input">Date</label>
+        <input type="date" id="date-input" autocomplete="off">
+      </div>
+      <button class="btn btn-primary btn-full" id="date-next-btn">Continue</button>
+    </div>
+    <button class="btn btn-ghost mt-12" id="back-to-service-btn">← Back</button>
+  </section>
+
+  <!-- ── Step 3: Choose time ────────────────────────────── -->
+  <section class="booking-step" id="step-3">
+    <h2 class="step-title">Choose a time</h2>
+    <div class="mini-summary" id="summary-3"></div>
+    <div id="slots-container">
+      <div class="loading-text">Loading available times…</div>
+    </div>
+    <button class="btn btn-ghost mt-12" id="back-to-date-btn">← Back</button>
+  </section>
+
+  <!-- ── Step 4: Your details ───────────────────────────── -->
+  <section class="booking-step" id="step-4">
+    <h2 class="step-title">Your details</h2>
+    <div class="mini-summary" id="summary-4"></div>
+    <div class="card">
+      <div class="field">
+        <label for="name-input">Full name</label>
+        <input type="text" id="name-input" placeholder="John Smith" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="phone-input">WhatsApp number</label>
+        <input type="tel" id="phone-input" placeholder="+1 234 567 8901" autocomplete="tel">
+        <p class="field-hint">Include your country code (e.g. +1 for US). We'll send a verification code here.</p>
+      </div>
+      <button class="btn btn-primary btn-full" id="send-otp-btn">Send Verification Code</button>
+      <p class="error-msg" id="details-error"></p>
+    </div>
+    <button class="btn btn-ghost mt-12" id="back-to-time-btn">← Back</button>
+  </section>
+
+  <!-- ── Step 5: Verify OTP ─────────────────────────────── -->
+  <section class="booking-step" id="step-5">
+    <h2 class="step-title">Verify your number</h2>
+    <div class="card">
+      <p class="otp-hint" id="otp-hint">Enter the 6-digit code sent to your WhatsApp</p>
+      <div class="otp-grid" id="otp-grid">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input type="text" class="otp-digit" maxlength="1" inputmode="numeric" pattern="[0-9]">
+      </div>
+      <button class="btn btn-primary btn-full mt-16" id="verify-btn">Confirm Booking</button>
+      <p class="error-msg" id="otp-error"></p>
+      <p class="resend-row">
+        Didn't receive it?
+        <button class="btn-link" id="resend-btn" disabled>Resend in <span id="resend-countdown">60</span>s</button>
+      </p>
+    </div>
+    <button class="btn btn-ghost mt-12" id="back-to-details-btn">← Back</button>
+  </section>
+
+  <!-- ── Step 6: Confirmed ──────────────────────────────── -->
+  <section class="booking-step" id="step-6">
+    <div class="confirmation">
+      <div class="checkmark">✓</div>
+      <h2>Appointment Confirmed</h2>
+      <div class="conf-rows" id="conf-rows"></div>
+      <button class="btn btn-outline" onclick="location.reload()">Book Another Appointment</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast"></div>
+
+<script src="/js/booking.js"></script>
+</body>
+</html>

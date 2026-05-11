@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "The Barbershop" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Admin" [ref=e5] [cursor=pointer]:
+        - /url: /admin.html
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e10]: Service
+      - generic [ref=e14]: Date
+      - generic [ref=e18]: Time
+      - generic [ref=e22]: Details
+      - generic [ref=e26]: Verify
+    - generic [ref=e58]:
+      - heading "Choose a time" [level=2] [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]: Haircut
+        - generic [ref=e63]: Tuesday, May 12
+      - generic [ref=e65]:
+        - button "09:00" [ref=e66] [cursor=pointer]
+        - button "09:15" [ref=e67] [cursor=pointer]
+        - button "09:30" [ref=e68] [cursor=pointer]
+        - button "09:45" [ref=e69] [cursor=pointer]
+        - button "10:00" [ref=e70] [cursor=pointer]
+        - button "10:15" [ref=e71] [cursor=pointer]
+        - button "10:30" [ref=e72] [cursor=pointer]
+        - button "10:45" [ref=e73] [cursor=pointer]
+        - button "11:00" [ref=e74] [cursor=pointer]
+        - button "11:15" [ref=e75] [cursor=pointer]
+        - button "11:30" [ref=e76] [cursor=pointer]
+        - button "11:45" [ref=e77] [cursor=pointer]
+        - button "12:00" [ref=e78] [cursor=pointer]
+        - button "12:15" [ref=e79] [cursor=pointer]
+        - button "12:30" [ref=e80] [cursor=pointer]
+        - button "12:45" [ref=e81] [cursor=pointer]
+        - button "13:00" [ref=e82] [cursor=pointer]
+        - button "13:15" [ref=e83] [cursor=pointer]
+        - button "13:30" [ref=e84] [cursor=pointer]
+        - button "13:45" [ref=e85] [cursor=pointer]
+        - button "14:00" [ref=e86] [cursor=pointer]
+        - button "14:15" [ref=e87] [cursor=pointer]
+        - button "14:30" [ref=e88] [cursor=pointer]
+        - button "14:45" [ref=e89] [cursor=pointer]
+        - button "15:00" [ref=e90] [cursor=pointer]
+        - button "15:15" [ref=e91] [cursor=pointer]
+        - button "15:30" [ref=e92] [cursor=pointer]
+        - button "15:45" [ref=e93] [cursor=pointer]
+        - button "16:00" [ref=e94] [cursor=pointer]
+        - button "16:15" [ref=e95] [cursor=pointer]
+        - button "16:30" [ref=e96] [cursor=pointer]
+        - button "16:45" [ref=e97] [cursor=pointer]
+        - button "17:00" [ref=e98] [cursor=pointer]
+        - button "17:15" [ref=e99] [cursor=pointer]
+        - button "17:30" [ref=e100] [cursor=pointer]
+      - button "← Back" [ref=e101] [cursor=pointer]

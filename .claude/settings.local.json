@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Set-Location \"c:\\\\Users\\\\johnp\\\\Desktop\\\\PROJECTS\\\\WEB projects\\\\MEMOS BARBERSHOP V2\"; $proc = Start-Process -FilePath \"node\" -ArgumentList \"server.js\" -PassThru -RedirectStandardOutput \".\\\\startup.log\" -RedirectStandardError \".\\\\startup_err.log\"; Start-Sleep -Seconds 4; Get-Content \".\\\\startup.log\"; Get-Content \".\\\\startup_err.log\"; Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue; Remove-Item \".\\\\startup.log\",\".\\\\startup_err.log\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/services\" -UseBasicParsing; \"OK: $\\($r.StatusCode\\) - $\\($r.Content\\)\" } catch { \"FAIL: $_\" })",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "PowerShell(Stop-Process -Id 19868 -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 1; Set-Location \"c:\\\\Users\\\\johnp\\\\Desktop\\\\PROJECTS\\\\WEB projects\\\\MEMOS BARBERSHOP V2\"; $p = Start-Process -FilePath \"node\" -ArgumentList \"server.js\" -PassThru; Start-Sleep -Seconds 3; $p.Id)",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:3000/api/schedule\" -UseBasicParsing; $r.Content)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/services\" -UseBasicParsing; \"services: $\\($r.StatusCode\\)\" } catch { \"services FAIL: $_\" }; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/schedule\" -UseBasicParsing; \"schedule: $\\($r.StatusCode\\) - $\\($r.Content.Substring\\(0,80\\)\\)\" } catch { \"schedule FAIL: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/api/working-days\" -UseBasicParsing; \"working-days: $\\($r.StatusCode\\)\" } catch { \"FAIL: $_\" })",
+      "PowerShell(netstat -ano)",
+      "PowerShell(Stop-Process -Id 25852,2364,19868 -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2; Set-Location \"c:\\\\Users\\\\johnp\\\\Desktop\\\\PROJECTS\\\\WEB projects\\\\MEMOS BARBERSHOP V2\"; $p = Start-Process -FilePath \"node\" -ArgumentList \"server.js\" -PassThru; Start-Sleep -Seconds 4; try { $s = Invoke-WebRequest -Uri \"http://localhost:3000/api/schedule\" -UseBasicParsing; \"schedule OK: $\\($s.Content.Substring\\(0,60\\)\\)\" } catch { \"FAIL: $_\" })",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_wait_for",
+      "mcp__plugin_playwright_playwright__browser_fill_form",
+      "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue | Stop-Process -Force; Start-Sleep -Seconds 1; $proc = Start-Process \"node\" -ArgumentList \"server.js\" -WorkingDirectory \"c:\\\\Users\\\\johnp\\\\Desktop\\\\PROJECTS\\\\WEB projects\\\\MEMOS BARBERSHOP V2\" -PassThru -RedirectStandardOutput \"server-out.log\" -RedirectStandardError \"server-err.log\"; Start-Sleep -Seconds 2; $proc.Id)",
+      "mcp__plugin_playwright_playwright__browser_type"
+    ]
+  }
+}

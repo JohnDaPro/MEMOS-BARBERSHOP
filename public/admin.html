@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Barbershop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════════════════════════════ -->
+<div class="login-wrap" id="login-section">
+  <div class="login-box">
+    <span class="brand">The Barbershop</span>
+    <p class="login-subtitle">Admin Panel</p>
+    <div class="card">
+      <form id="login-form">
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="Enter admin password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="login-btn">Sign in</button>
+        <p class="error-msg" id="login-error"></p>
+      </form>
+    </div>
+    <p class="mt-16 text-muted text-small" style="text-align:center">
+      <a href="/" class="header-link">← Back to booking page</a>
+    </p>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══════════════════════════════════════════════════════════════ -->
+<div class="admin-layout" id="dashboard-section" style="display:none">
+
+  <div class="admin-topbar">
+    <span class="brand">The Barbershop</span>
+    <div class="topbar-right">
+      <span class="admin-label">Admin</span>
+      <button class="btn btn-outline btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </div>
+
+  <nav class="tabs-bar">
+    <button class="tab-btn active" data-tab="bookings">Bookings</button>
+    <button class="tab-btn" data-tab="services">Services</button>
+    <button class="tab-btn" data-tab="schedule">Schedule</button>
+    <button class="tab-btn" data-tab="blocked">Time Off</button>
+  </nav>
+
+  <div class="tab-panels">
+
+    <!-- ── BOOKINGS ─────────────────────────────────────────────────────── -->
+    <div class="tab-panel active" id="tab-bookings">
+      <div class="section-header">
+        <h2>Bookings</h2>
+      </div>
+      <div class="filters-row">
+        <div>
+          <label class="sr-only" for="filter-date">Filter by date</label>
+          <input type="date" id="filter-date" style="width:180px">
+        </div>
+        <div>
+          <label class="sr-only" for="filter-status">Filter by status</label>
+          <select id="filter-status" style="width:150px">
+            <option value="">All statuses</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <button class="btn btn-outline btn-sm" id="filter-btn">Filter</button>
+        <button class="btn btn-ghost btn-sm" id="filter-clear-btn">Clear</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Service</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bookings-tbody">
+            <tr><td colspan="8" class="table-empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── SERVICES ─────────────────────────────────────────────────────── -->
+    <div class="tab-panel" id="tab-services">
+      <div class="section-header">
+        <h2>Services</h2>
+        <button class="btn btn-outline btn-sm" id="add-service-btn">+ Add service</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Duration</th>
+              <th>Price</th>
+              <th>Active</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="services-tbody">
+            <tr><td colspan="5" class="table-empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add / Edit form -->
+      <div class="admin-form" id="service-form" style="display:none">
+        <h3 id="service-form-title">Add service</h3>
+        <input type="hidden" id="service-id">
+        <div class="form-row">
+          <div class="field">
+            <label for="service-name">Name</label>
+            <input type="text" id="service-name" placeholder="e.g. Haircut">
+          </div>
+          <div class="field">
+            <label for="service-duration">Duration (minutes)</label>
+            <input type="number" id="service-duration" placeholder="30" min="5" max="240">
+          </div>
+          <div class="field">
+            <label for="service-price">Price ($)</label>
+            <input type="number" id="service-price" placeholder="25.00" min="0" step="0.01">
+          </div>
+          <div class="field" id="service-active-field" style="display:none">
+            <label>&nbsp;</label>
+            <label class="checkbox-row">
+              <input type="checkbox" id="service-active" checked>
+              <span>Active (visible to customers)</span>
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button class="btn btn-primary btn-sm" id="service-save-btn">Save</button>
+          <button class="btn btn-ghost btn-sm" id="service-cancel-btn">Cancel</button>
+        </div>
+        <p class="error-msg" id="service-error"></p>
+      </div>
+    </div>
+
+    <!-- ── SCHEDULE ─────────────────────────────────────────────────────── -->
+    <div class="tab-panel" id="tab-schedule">
+      <div class="section-header">
+        <h2>Working Hours</h2>
+        <button class="btn btn-primary btn-sm" id="schedule-save-btn">Save Changes</button>
+      </div>
+      <div class="schedule-grid" id="schedule-grid">
+        <div class="loading-text" style="padding:20px">Loading…</div>
+      </div>
+      <p class="success-msg mt-12" id="schedule-success" style="display:none">Schedule saved.</p>
+      <p class="error-msg" id="schedule-error"></p>
+    </div>
+
+    <!-- ── BLOCKED TIMES ─────────────────────────────────────────────────── -->
+    <div class="tab-panel" id="tab-blocked">
+      <div class="section-header">
+        <h2>Time Off</h2>
+      </div>
+
+      <!-- Add form -->
+      <div class="admin-form mb-16" style="margin-bottom:20px">
+        <h3>Add blocked time</h3>
+        <div class="form-row">
+          <div class="field">
+            <label for="block-date">Date</label>
+            <input type="date" id="block-date">
+          </div>
+          <div class="field">
+            <label for="block-start">From (leave blank for full day)</label>
+            <input type="time" id="block-start">
+          </div>
+          <div class="field">
+            <label for="block-end">To</label>
+            <input type="time" id="block-end">
+          </div>
+          <div class="field">
+            <label for="block-reason">Reason (optional)</label>
+            <input type="text" id="block-reason" placeholder="e.g. Public holiday">
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm mt-8" id="block-add-btn">Add</button>
+        <p class="error-msg" id="block-error"></p>
+      </div>
+
+      <!-- List -->
+      <div id="blocked-list-wrap">
+        <div class="loading-text">Loading…</div>
+      </div>
+    </div>
+
+  </div><!-- /tab-panels -->
+</div><!-- /dashboard -->
+
+<div id="toast"></div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

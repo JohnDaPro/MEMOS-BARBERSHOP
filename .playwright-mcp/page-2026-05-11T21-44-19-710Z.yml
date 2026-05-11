@@ -1,0 +1,36 @@
+- generic [ref=e15]:
+  - generic [ref=e16]:
+    - generic [ref=e17]: The Barbershop
+    - generic [ref=e18]:
+      - generic [ref=e19]: Admin
+      - button "Log out" [ref=e20] [cursor=pointer]
+  - navigation [ref=e21]:
+    - button "Bookings" [ref=e22] [cursor=pointer]
+    - button "Services" [ref=e23] [cursor=pointer]
+    - button "Schedule" [ref=e24] [cursor=pointer]
+    - button "Time Off" [active] [ref=e25] [cursor=pointer]
+  - generic [ref=e196]:
+    - heading "Time Off" [level=2] [ref=e198]
+    - generic [ref=e199]:
+      - heading "Add blocked time" [level=3] [ref=e200]
+      - generic [ref=e201]:
+        - generic [ref=e202]:
+          - generic [ref=e203]: Date
+          - textbox "Date" [ref=e204]
+        - generic [ref=e205]:
+          - generic [ref=e206]: From (leave blank for full day)
+          - textbox "From (leave blank for full day)" [ref=e207]
+        - generic [ref=e208]:
+          - generic [ref=e209]: To
+          - textbox "To" [ref=e210]
+        - generic [ref=e211]:
+          - generic [ref=e212]: Reason (optional)
+          - textbox "Reason (optional)" [ref=e213]:
+            - /placeholder: e.g. Public holiday
+      - button "Add" [ref=e214] [cursor=pointer]
+      - paragraph [ref=e215]
+    - generic [ref=e218]:
+      - generic [ref=e219]: Wed, May 13, 2026
+      - generic [ref=e220]: 12:00 – 19:30
+      - generic [ref=e221]: Holidays
+      - button "Remove" [ref=e222] [cursor=pointer]

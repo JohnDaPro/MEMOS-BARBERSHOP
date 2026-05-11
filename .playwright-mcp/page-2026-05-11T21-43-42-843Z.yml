@@ -1,0 +1,13 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: The Barbershop
+  - paragraph [ref=e5]: Admin Panel
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]: Password
+      - textbox "Password" [ref=e10]:
+        - /placeholder: Enter admin password
+    - button "Sign in" [ref=e11] [cursor=pointer]
+    - paragraph [ref=e12]
+  - paragraph [ref=e13]:
+    - link "← Back to booking page" [ref=e14] [cursor=pointer]:
+      - /url: /

@@ -1,0 +1,25 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "The Barbershop" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Admin" [ref=e5] [cursor=pointer]:
+        - /url: /admin.html
+  - main [ref=e6]:
+    - generic [ref=e137]:
+      - generic [ref=e138]: ✓
+      - heading "Appointment Confirmed" [level=2] [ref=e139]
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - generic [ref=e142]: Service
+          - generic [ref=e143]: Haircut
+        - generic [ref=e144]:
+          - generic [ref=e145]: Date
+          - generic [ref=e146]: Tuesday, May 12
+        - generic [ref=e147]:
+          - generic [ref=e148]: Time
+          - generic [ref=e149]: 10:00 – 10:30
+        - generic [ref=e150]:
+          - generic [ref=e151]: Price
+          - generic [ref=e152]: $25.00
+      - button "Book Another Appointment" [ref=e153] [cursor=pointer]

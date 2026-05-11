@@ -1,0 +1,33 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "The Barbershop" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Admin" [ref=e5] [cursor=pointer]:
+        - /url: /admin.html
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e10]: Service
+      - generic [ref=e14]: Date
+      - generic [ref=e18]: Time
+      - generic [ref=e22]: Details
+      - generic [ref=e26]: Verify
+    - generic [ref=e102]:
+      - heading "Your details" [level=2] [ref=e103]
+      - generic [ref=e104]:
+        - generic [ref=e105]: Haircut
+        - generic [ref=e107]: Tuesday, May 12
+        - generic [ref=e109]: 10:00
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]: Full name
+          - textbox "Full name" [ref=e113]:
+            - /placeholder: John Smith
+        - generic [ref=e114]:
+          - generic [ref=e115]: WhatsApp number
+          - textbox "WhatsApp number" [ref=e116]:
+            - /placeholder: +1 234 567 8901
+          - paragraph [ref=e117]: Include your country code (e.g. +1 for US). We'll send a verification code here.
+        - button "Send Verification Code" [ref=e118] [cursor=pointer]
+        - paragraph [ref=e119]
+      - button "← Back" [ref=e120] [cursor=pointer]
