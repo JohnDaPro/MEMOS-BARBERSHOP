@@ -1,209 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin — Barbershop</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memo's — Admin</title>
+<link rel="icon" href="/img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#191919;
+  --text:#f0ede8;--muted:#666;--dim:#2a2a2a;
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,.1);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --ok:#4caf6e;--err:#e05555;--font:'Inter',sans-serif;
+  --sw:220px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.login-card{background:var(--bg2);border:1px solid var(--border);padding:52px 44px;width:100%;max-width:360px}
+.login-logo{font-size:16px;font-weight:900;letter-spacing:.28em;margin-bottom:6px}
+.login-sub{font-size:11px;letter-spacing:.14em;color:var(--muted);margin-bottom:36px}
+.login-card input{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:14px;padding:13px 15px;outline:none;margin-bottom:14px;transition:border-color .2s}
+.login-card input:focus{border-color:var(--gold)}
+.btn-login{width:100%;background:var(--gold);border:none;color:#0a0a0a;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:13px;cursor:pointer;transition:background .2s}
+.btn-login:hover{background:#d6b45a}
+.login-err{font-size:12px;color:var(--err);margin-top:10px;display:none}
+#app{display:none}
+#app.on{display:flex;min-height:100vh}
+.sb{width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:20}
+.sb-logo{padding:26px 22px;font-size:14px;font-weight:900;letter-spacing:.28em;border-bottom:1px solid var(--border);flex-shrink:0}
+.sb-logo span{display:block;font-size:9px;font-weight:400;letter-spacing:.14em;color:var(--muted);margin-top:3px}
+.sb-nav{flex:1;padding:14px 0;overflow-y:auto}
+.nav-it{display:flex;align-items:center;gap:11px;padding:11px 22px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;border-left:2px solid transparent}
+.nav-it:hover{color:var(--text);background:rgba(255,255,255,.025)}
+.nav-it.on{color:var(--gold);border-left-color:var(--gold);background:var(--gold-dim)}
+.nav-ic{font-size:15px;width:18px;text-align:center}
+.sb-foot{padding:14px 22px;border-top:1px solid var(--border)}
+.btn-out{width:100%;background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:8px;cursor:pointer;transition:all .2s}
+.btn-out:hover{border-color:var(--err);color:var(--err)}
+.main{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.main-hdr{padding:22px 36px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg);position:sticky;top:0;z-index:10}
+.main-title{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.main-body{padding:36px;flex:1}
+.tab{display:none}
+.tab.on{display:block}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--border)}
+td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border:none}
+tr:hover td{background:rgba(255,255,255,.018)}
+.badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px}
+.b-conf{background:rgba(76,175,110,.15);color:var(--ok)}
+.b-pend{background:rgba(201,168,76,.15);color:var(--gold)}
+.b-comp{background:rgba(255,255,255,.06);color:var(--muted)}
+.b-canc{background:rgba(224,85,85,.15);color:var(--err)}
+.btn-sm{font-family:var(--font);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .15s}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm.d:hover{border-color:var(--err);color:var(--err)}
+.btn-sm.ok:hover{border-color:var(--ok);color:var(--ok)}
+.fc{background:var(--bg2);border:1px solid var(--border);padding:28px;margin-bottom:28px}
+.fc h3{font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.frow{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.fg input,.fg select,.fg textarea{background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:12px;padding:9px 11px;outline:none;width:100%;transition:border-color .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+.fg select option{background:var(--bg2)}
+.fg textarea{resize:vertical;min-height:72px}
+.btn-add{background:var(--gold);border:none;color:#0a0a0a;font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:background .2s}
+.btn-add:hover{background:#d6b45a}
+.tog{position:relative;display:inline-block;width:34px;height:18px}
+.tog input{display:none}
+.tog-sl{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--border2);cursor:pointer;transition:all .2s;border-radius:9px}
+.tog-sl::before{content:'';position:absolute;width:10px;height:10px;background:var(--muted);border-radius:50%;top:3px;left:3px;transition:all .2s}
+.tog input:checked+.tog-sl{background:var(--gold-dim);border-color:var(--gold)}
+.tog input:checked+.tog-sl::before{transform:translateX(16px);background:var(--gold)}
+.filters{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap;align-items:flex-end}
+.sch-row{display:grid;grid-template-columns:90px 48px repeat(4,1fr);gap:10px;align-items:center;padding:14px;background:var(--bg2);border:1px solid var(--border);margin-bottom:2px}
+.sch-row .fg label{font-size:8px}
+.sch-day{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.cfg-row{display:grid;grid-template-columns:200px 1fr 72px;gap:14px;align-items:center;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);margin-bottom:2px}
+.cfg-key{font-size:11px;font-weight:600;color:var(--muted);font-family:monospace}
+.cfg-in{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;padding:7px 9px;outline:none;width:100%;transition:border-color .2s}
+.cfg-in:focus{border-color:var(--gold)}
+.barber-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.bc{background:var(--bg2);border:1px solid var(--border);padding:20px;display:flex;gap:14px;align-items:flex-start}
+.bc-av{width:52px;height:52px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden}
+.bc-av img{width:100%;height:100%;object-fit:cover}
+.empty{text-align:center;padding:52px 24px;color:var(--muted);font-size:13px}
+#toasts{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 18px;font-size:12px;font-weight:500;min-width:240px;border-left:3px solid;animation:tin .2s ease}
+.toast.ok{background:var(--bg3);border-color:var(--ok);color:var(--text)}
+.toast.err{background:var(--bg3);border-color:var(--err);color:var(--text)}
+@keyframes tin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@media(max-width:720px){.sb{width:64px}.sb-logo span,.nav-it span:not(.nav-ic){display:none}.main{margin-left:64px}.nav-it{justify-content:center;padding:14px 0}}
+</style>
 </head>
 <body>
 
-<!-- ══ LOGIN ══════════════════════════════════════════════════════════════════ -->
-<div class="login-wrap" id="login-section">
-  <div class="login-box">
-    <span class="brand">The Barbershop</span>
-    <p class="login-subtitle">Admin Panel</p>
-    <div class="card">
-      <form id="login-form">
-        <div class="field">
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" placeholder="Enter admin password" autocomplete="current-password">
-        </div>
-        <button type="submit" class="btn btn-primary btn-full" id="login-btn">Sign in</button>
-        <p class="error-msg" id="login-error"></p>
-      </form>
-    </div>
-    <p class="mt-16 text-muted text-small" style="text-align:center">
-      <a href="/" class="header-link">← Back to booking page</a>
-    </p>
+<div id="toasts"></div>
+
+<div id="login">
+  <div class="login-card">
+    <div class="login-logo">MEMO'S</div>
+    <div class="login-sub">Admin Panel</div>
+    <input type="password" id="pwd" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn-login" onclick="login()">Sign In</button>
+    <div class="login-err" id="lerr">Incorrect password.</div>
   </div>
 </div>
 
-<!-- ══ DASHBOARD ══════════════════════════════════════════════════════════════ -->
-<div class="admin-layout" id="dashboard-section" style="display:none">
+<div id="app">
+  <aside class="sb">
+    <div class="sb-logo">MEMO'S<span>Admin Panel</span></div>
+    <nav class="sb-nav">
+      <div class="nav-it on" onclick="tab('appointments')"><span class="nav-ic">📅</span><span>Appointments</span></div>
+      <div class="nav-it" onclick="tab('services')"><span class="nav-ic">✂</span><span>Services</span></div>
+      <div class="nav-it" onclick="tab('barbers')"><span class="nav-ic">👤</span><span>Barbers</span></div>
+      <div class="nav-it" onclick="tab('schedule')"><span class="nav-ic">🕐</span><span>Schedule</span></div>
+      <div class="nav-it" onclick="tab('exceptions')"><span class="nav-ic">🚫</span><span>Exceptions</span></div>
+      <div class="nav-it" onclick="tab('config')"><span class="nav-ic">⚙</span><span>Site Config</span></div>
+    </nav>
+    <div class="sb-foot"><button class="btn-out" onclick="logout()">Sign Out</button></div>
+  </aside>
 
-  <div class="admin-topbar">
-    <span class="brand">The Barbershop</span>
-    <div class="topbar-right">
-      <span class="admin-label">Admin</span>
-      <button class="btn btn-outline btn-sm" id="logout-btn">Log out</button>
-    </div>
-  </div>
+  <main class="main">
+    <div class="main-hdr"><div class="main-title" id="mtitle">Appointments</div></div>
+    <div class="main-body">
 
-  <nav class="tabs-bar">
-    <button class="tab-btn active" data-tab="bookings">Bookings</button>
-    <button class="tab-btn" data-tab="services">Services</button>
-    <button class="tab-btn" data-tab="schedule">Schedule</button>
-    <button class="tab-btn" data-tab="blocked">Time Off</button>
-  </nav>
-
-  <div class="tab-panels">
-
-    <!-- ── BOOKINGS ─────────────────────────────────────────────────────── -->
-    <div class="tab-panel active" id="tab-bookings">
-      <div class="section-header">
-        <h2>Bookings</h2>
-      </div>
-      <div class="filters-row">
-        <div>
-          <label class="sr-only" for="filter-date">Filter by date</label>
-          <input type="date" id="filter-date" style="width:180px">
-        </div>
-        <div>
-          <label class="sr-only" for="filter-status">Filter by status</label>
-          <select id="filter-status" style="width:150px">
-            <option value="">All statuses</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
-        <button class="btn btn-outline btn-sm" id="filter-btn">Filter</button>
-        <button class="btn btn-ghost btn-sm" id="filter-clear-btn">Clear</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Customer</th>
-              <th>Phone</th>
-              <th>Service</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="bookings-tbody">
-            <tr><td colspan="8" class="table-empty">Loading…</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ── SERVICES ─────────────────────────────────────────────────────── -->
-    <div class="tab-panel" id="tab-services">
-      <div class="section-header">
-        <h2>Services</h2>
-        <button class="btn btn-outline btn-sm" id="add-service-btn">+ Add service</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Duration</th>
-              <th>Price</th>
-              <th>Active</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="services-tbody">
-            <tr><td colspan="5" class="table-empty">Loading…</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Add / Edit form -->
-      <div class="admin-form" id="service-form" style="display:none">
-        <h3 id="service-form-title">Add service</h3>
-        <input type="hidden" id="service-id">
-        <div class="form-row">
-          <div class="field">
-            <label for="service-name">Name</label>
-            <input type="text" id="service-name" placeholder="e.g. Haircut">
-          </div>
-          <div class="field">
-            <label for="service-duration">Duration (minutes)</label>
-            <input type="number" id="service-duration" placeholder="30" min="5" max="240">
-          </div>
-          <div class="field">
-            <label for="service-price">Price ($)</label>
-            <input type="number" id="service-price" placeholder="25.00" min="0" step="0.01">
-          </div>
-          <div class="field" id="service-active-field" style="display:none">
-            <label>&nbsp;</label>
-            <label class="checkbox-row">
-              <input type="checkbox" id="service-active" checked>
-              <span>Active (visible to customers)</span>
-            </label>
+      <div class="tab on" id="t-appointments">
+        <div class="filters">
+          <div class="fg"><label>Date</label><input type="date" id="af-date" onchange="loadAppts()"></div>
+          <div class="fg"><label>Status</label>
+            <select id="af-status" onchange="loadAppts()">
+              <option value="all">All</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
           </div>
         </div>
-        <div style="display:flex;gap:10px;margin-top:8px">
-          <button class="btn btn-primary btn-sm" id="service-save-btn">Save</button>
-          <button class="btn btn-ghost btn-sm" id="service-cancel-btn">Cancel</button>
+        <div class="tw">
+          <table><thead><tr>
+            <th>Time</th><th>Barber</th><th>Customer</th><th>Phone</th><th>Services</th><th>Total</th><th>Status</th><th>Actions</th>
+          </tr></thead><tbody id="appt-body"></tbody></table>
         </div>
-        <p class="error-msg" id="service-error"></p>
-      </div>
-    </div>
-
-    <!-- ── SCHEDULE ─────────────────────────────────────────────────────── -->
-    <div class="tab-panel" id="tab-schedule">
-      <div class="section-header">
-        <h2>Working Hours</h2>
-        <button class="btn btn-primary btn-sm" id="schedule-save-btn">Save Changes</button>
-      </div>
-      <div class="schedule-grid" id="schedule-grid">
-        <div class="loading-text" style="padding:20px">Loading…</div>
-      </div>
-      <p class="success-msg mt-12" id="schedule-success" style="display:none">Schedule saved.</p>
-      <p class="error-msg" id="schedule-error"></p>
-    </div>
-
-    <!-- ── BLOCKED TIMES ─────────────────────────────────────────────────── -->
-    <div class="tab-panel" id="tab-blocked">
-      <div class="section-header">
-        <h2>Time Off</h2>
       </div>
 
-      <!-- Add form -->
-      <div class="admin-form mb-16" style="margin-bottom:20px">
-        <h3>Add blocked time</h3>
-        <div class="form-row">
-          <div class="field">
-            <label for="block-date">Date</label>
-            <input type="date" id="block-date">
+      <div class="tab" id="t-services">
+        <div class="fc">
+          <h3>Add Service</h3>
+          <div class="frow">
+            <div class="fg"><label>Name</label><input type="text" id="sn" placeholder="Haircut"></div>
+            <div class="fg"><label>Description</label><input type="text" id="sd" placeholder="Classic scissors cut"></div>
+            <div class="fg"><label>Price (€)</label><input type="number" id="sp" placeholder="15.00" step="0.5" min="0"></div>
+            <div class="fg"><label>Duration (min)</label><input type="number" id="sdur" placeholder="30" step="5" min="5"></div>
           </div>
-          <div class="field">
-            <label for="block-start">From (leave blank for full day)</label>
-            <input type="time" id="block-start">
-          </div>
-          <div class="field">
-            <label for="block-end">To</label>
-            <input type="time" id="block-end">
-          </div>
-          <div class="field">
-            <label for="block-reason">Reason (optional)</label>
-            <input type="text" id="block-reason" placeholder="e.g. Public holiday">
-          </div>
+          <button class="btn-add" onclick="addSvc()">Add Service</button>
         </div>
-        <button class="btn btn-outline btn-sm mt-8" id="block-add-btn">Add</button>
-        <p class="error-msg" id="block-error"></p>
+        <div class="tw">
+          <table><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Duration</th><th>Active</th><th>Actions</th></tr></thead>
+          <tbody id="svc-body"></tbody></table>
+        </div>
       </div>
 
-      <!-- List -->
-      <div id="blocked-list-wrap">
-        <div class="loading-text">Loading…</div>
+      <div class="tab" id="t-barbers">
+        <div class="fc">
+          <h3>Add Barber</h3>
+          <div class="frow">
+            <div class="fg"><label>Name</label><input type="text" id="bn" placeholder="John"></div>
+            <div class="fg"><label>Photo URL</label><input type="text" id="bp" placeholder="https://..."></div>
+            <div class="fg" style="grid-column:span 2"><label>Bio</label><input type="text" id="bb" placeholder="10 years experience..."></div>
+          </div>
+          <button class="btn-add" onclick="addBarber()">Add Barber</button>
+        </div>
+        <div class="barber-list" id="barber-list"></div>
       </div>
+
+      <div class="tab" id="t-schedule">
+        <div class="fg" style="max-width:220px;margin-bottom:22px">
+          <label>Barber</label>
+          <select id="sch-barber" onchange="loadSch()"><option value="">Shop-wide default</option></select>
+        </div>
+        <div id="sch-grid"></div>
+      </div>
+
+      <div class="tab" id="t-exceptions">
+        <div class="fc">
+          <h3>Add Exception</h3>
+          <div class="frow">
+            <div class="fg"><label>Date</label><input type="date" id="ed"></div>
+            <div class="fg"><label>Barber</label><select id="eb"><option value="">Shop-wide</option></select></div>
+            <div class="fg"><label>Type</label>
+              <select id="et" onchange="toggleExcHrs()"><option value="closed">Closed All Day</option><option value="custom">Custom Hours</option></select>
+            </div>
+          </div>
+          <div class="frow" id="exc-hrs" style="display:none">
+            <div class="fg"><label>Open</label><input type="time" id="eo"></div>
+            <div class="fg"><label>Close</label><input type="time" id="ec"></div>
+          </div>
+          <div class="frow"><div class="fg" style="grid-column:span 2"><label>Note</label><input type="text" id="en" placeholder="Holiday, special event..."></div></div>
+          <button class="btn-add" onclick="addExc()">Add Exception</button>
+        </div>
+        <div class="tw">
+          <table><thead><tr><th>Date</th><th>Barber</th><th>Status</th><th>Hours</th><th>Note</th><th>Actions</th></tr></thead>
+          <tbody id="exc-body"></tbody></table>
+        </div>
+      </div>
+
+      <div class="tab" id="t-config"><div id="cfg-grid"></div></div>
+
     </div>
+  </main>
+</div>
 
-  </div><!-- /tab-panels -->
-</div><!-- /dashboard -->
+<script>
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const TITLES={appointments:'Appointments',services:'Services',barbers:'Barbers',schedule:'Schedule',exceptions:'Exceptions',config:'Site Config'};
+let TOKEN=localStorage.getItem('memos_admin_token')||'';
 
-<div id="toast"></div>
+function toast(msg,type='ok'){const el=document.createElement('div');el.className='toast '+type;el.textContent=msg;document.getElementById('toasts').appendChild(el);setTimeout(()=>el.remove(),3500);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
-<script src="/js/admin.js"></script>
+async function api(method,path,body){
+  const o={method,headers:{'Content-Type':'application/json'}};
+  if(TOKEN)o.headers.Authorization='Bearer '+TOKEN;
+  if(body)o.body=JSON.stringify(body);
+  const r=await fetch('/api/admin'+path,o);
+  if(r.status===401){TOKEN='';localStorage.removeItem('memos_admin_token');showLogin();throw new Error('Session expired');}
+  const d=await r.json();
+  if(!r.ok)throw new Error(d.error||'Request failed');
+  return d;
+}
+
+function showLogin(){document.getElementById('app').classList.remove('on');document.getElementById('login').style.display='flex';}
+function showApp(){document.getElementById('login').style.display='none';document.getElementById('app').classList.add('on');initAdmin();}
+
+async function login(){
+  const pwd=document.getElementById('pwd').value;
+  try{
+    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd})});
+    const d=await r.json();
+    if(!r.ok)throw new Error();
+    TOKEN=d.token;localStorage.setItem('memos_admin_token',TOKEN);showApp();
+  }catch{document.getElementById('lerr').style.display='block';}
+}
+function logout(){TOKEN='';localStorage.removeItem('memos_admin_token');location.reload();}
+
+function tab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('on'));
+  document.getElementById('t-'+name).classList.add('on');
+  document.querySelector(`.nav-it[onclick="tab('${name}')"]`).classList.add('on');
+  document.getElementById('mtitle').textContent=TITLES[name]||name;
+  ({appointments:loadAppts,services:loadSvcs,barbers:loadBarbers,schedule:loadSch,exceptions:loadExcs,config:loadCfg}[name]||(()=>{}))();
+}
+
+async function initAdmin(){
+  document.getElementById('af-date').value=new Date().toISOString().split('T')[0];
+  try{
+    const bs=await api('GET','/barbers');
+    [document.getElementById('sch-barber'),document.getElementById('eb')].forEach(sel=>{
+      [...sel.querySelectorAll('option')].slice(1).forEach(o=>o.remove());
+      bs.forEach(b=>{const o=document.createElement('option');o.value=b.id;o.textContent=b.name;sel.appendChild(o);});
+    });
+  }catch{}
+  loadAppts();
+}
+
+async function loadAppts(){
+  const date=document.getElementById('af-date').value,status=document.getElementById('af-status').value;
+  try{
+    const a=await api('GET',`/appointments?date=${date}&status=${status}`);
+    const tbody=document.getElementById('appt-body');
+    if(!a.length){tbody.innerHTML=`<tr><td colspan="8" class="empty">No appointments.</td></tr>`;return;}
+    tbody.innerHTML=a.map(x=>{
+      const svcs=(x.services||[]).map(s=>esc(s.service_name)).join(', ');
+      const badge={confirmed:'b-conf',completed:'b-comp',cancelled:'b-canc'}[x.status]||'';
+      const canComp=x.status==='confirmed',canCanc=x.status==='confirmed';
+      return `<tr>
+        <td>${esc(x.start_time)}–${esc(x.end_time)}</td>
+        <td>${esc(x.barber_name)||'—'}</td>
+        <td>${esc(x.customer_name)||'<span style="color:var(--muted)">—</span>'}</td>
+        <td>${esc(x.customer_phone)||'—'}</td>
+        <td style="max-width:200px">${svcs}</td>
+        <td>€${(+(x.final_total_price||0)).toFixed(2)}</td>
+        <td><span class="badge ${badge}">${esc(x.status)}</span></td>
+        <td>${canComp?`<button class="btn-sm ok" onclick="apptStatus(${x.id},'completed')">Complete</button> `:''}${canCanc?`<button class="btn-sm d" onclick="apptStatus(${x.id},'cancelled')">Cancel</button>`:''}</td>
+      </tr>`;
+    }).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function apptStatus(id,status){try{await api('PATCH',`/appointments/${id}/status`,{status});toast(status==='completed'?'Marked complete.':'Cancelled.');loadAppts();}catch(e){toast(e.message,'err');}}
+
+async function loadSvcs(){
+  try{
+    const s=await api('GET','/services');
+    document.getElementById('svc-body').innerHTML=s.map(x=>`<tr>
+      <td>${esc(x.name)}</td><td>${esc(x.description)||'—'}</td><td>€${(+x.price).toFixed(2)}</td><td>${x.duration_minutes} min</td>
+      <td><label class="tog"><input type="checkbox" ${x.is_active?'checked':''} onchange="togSvc(${x.id},this.checked)"><span class="tog-sl"></span></label></td>
+      <td><button class="btn-sm d" onclick="delSvc(${x.id})">Delete</button></td></tr>`).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function addSvc(){
+  const name=document.getElementById('sn').value.trim(),description=document.getElementById('sd').value.trim();
+  const price=parseFloat(document.getElementById('sp').value),duration_minutes=parseInt(document.getElementById('sdur').value);
+  if(!name||isNaN(price)||isNaN(duration_minutes)){toast('Fill all service fields.','err');return;}
+  try{await api('POST','/services',{name,description,price,duration_minutes});toast('Service added.');['sn','sd','sp','sdur'].forEach(id=>document.getElementById(id).value='');loadSvcs();}catch(e){toast(e.message,'err');}
+}
+async function togSvc(id,active){try{await api('PATCH',`/services/${id}`,{is_active:active?1:0});toast(active?'Enabled.':'Disabled.');}catch(e){toast(e.message,'err');}}
+async function delSvc(id){try{await api('DELETE',`/services/${id}`);toast('Deleted.');loadSvcs();}catch(e){toast(e.message,'err');}}
+
+async function loadBarbers(){
+  try{
+    const bs=await api('GET','/barbers');
+    document.getElementById('barber-list').innerHTML=bs.map(b=>`<div class="bc">
+      <div class="bc-av">${b.photo_url?`<img src="${esc(b.photo_url)}" alt="">`:'✂'}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;margin-bottom:3px">${esc(b.name)}</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">${esc(b.bio)||''}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <label class="tog"><input type="checkbox" ${b.is_active?'checked':''} onchange="togBarber(${b.id},this.checked)"><span class="tog-sl"></span></label>
+          <span style="font-size:10px;color:var(--muted)">${b.is_active?'Active':'Inactive'}</span>
+        </div>
+      </div></div>`).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function addBarber(){
+  const name=document.getElementById('bn').value.trim(),photo_url=document.getElementById('bp').value.trim(),bio=document.getElementById('bb').value.trim();
+  if(!name){toast('Enter barber name.','err');return;}
+  try{await api('POST','/barbers',{name,photo_url,bio});toast('Barber added.');['bn','bp','bb'].forEach(id=>document.getElementById(id).value='');loadBarbers();initAdmin();}catch(e){toast(e.message,'err');}
+}
+async function togBarber(id,active){try{await api('PATCH',`/barbers/${id}`,{is_active:active?1:0});toast(active?'Activated.':'Deactivated.');loadBarbers();}catch(e){toast(e.message,'err');}}
+
+async function loadSch(){
+  const bid=document.getElementById('sch-barber').value;
+  try{
+    const rows=await api('GET','/schedule');
+    const fil=rows.filter(r=>bid?r.barber_id==bid:!r.barber_id);
+    const byDay={};fil.forEach(r=>byDay[r.weekday]=r);
+    document.getElementById('sch-grid').innerHTML=DAYS.map((day,i)=>{
+      const r=byDay[i]||{};
+      return `<div class="sch-row">
+        <span class="sch-day">${day}</span>
+        <label class="tog"><input type="checkbox" ${r.is_enabled?'checked':''} id="se${i}" onchange="saveSch(${i})"><span class="tog-sl"></span></label>
+        <div class="fg"><label>Open 1</label><input type="time" id="so${i}" value="${r.open_time||''}" onchange="saveSch(${i})"></div>
+        <div class="fg"><label>Close 1</label><input type="time" id="sc${i}" value="${r.close_time||''}" onchange="saveSch(${i})"></div>
+        <div class="fg"><label>Open 2</label><input type="time" id="so2${i}" value="${r.open_time_2||''}" onchange="saveSch(${i})"></div>
+        <div class="fg"><label>Close 2</label><input type="time" id="sc2${i}" value="${r.close_time_2||''}" onchange="saveSch(${i})"></div>
+      </div>`;
+    }).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function saveSch(wd){
+  const bid=document.getElementById('sch-barber').value||null;
+  try{
+    await api('POST','/schedule',{barber_id:bid?+bid:null,weekday:wd,
+      is_enabled:document.getElementById(`se${wd}`).checked?1:0,
+      open_time:document.getElementById(`so${wd}`).value||null,close_time:document.getElementById(`sc${wd}`).value||null,
+      open_time_2:document.getElementById(`so2${wd}`).value||null,close_time_2:document.getElementById(`sc2${wd}`).value||null});
+    toast('Saved.');
+  }catch(e){toast(e.message,'err');}
+}
+
+function toggleExcHrs(){document.getElementById('exc-hrs').style.display=document.getElementById('et').value==='custom'?'grid':'none';}
+async function loadExcs(){
+  try{
+    const exs=await api('GET','/exceptions');
+    const tbody=document.getElementById('exc-body');
+    if(!exs.length){tbody.innerHTML=`<tr><td colspan="6" class="empty">No exceptions.</td></tr>`;return;}
+    tbody.innerHTML=exs.map(e=>`<tr>
+      <td>${esc(e.exception_date)}</td><td>${esc(e.barber_name)||'Shop-wide'}</td>
+      <td>${e.is_closed?'<span class="badge b-canc">Closed</span>':'<span class="badge b-conf">Custom</span>'}</td>
+      <td>${e.is_closed?'—':`${esc(e.open_time)||''}–${esc(e.close_time)||''}`}</td>
+      <td>${esc(e.note)||'—'}</td>
+      <td><button class="btn-sm d" onclick="delExc(${e.id})">Delete</button></td></tr>`).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function addExc(){
+  const exception_date=document.getElementById('ed').value,barber_id=document.getElementById('eb').value||null;
+  const type=document.getElementById('et').value,is_closed=type==='closed'?1:0;
+  const open_time=type==='custom'?document.getElementById('eo').value:null,close_time=type==='custom'?document.getElementById('ec').value:null;
+  const note=document.getElementById('en').value.trim()||null;
+  if(!exception_date){toast('Select a date.','err');return;}
+  try{await api('POST','/exceptions',{barber_id:barber_id?+barber_id:null,exception_date,is_closed,open_time,close_time,note});toast('Exception added.');loadExcs();}catch(e){toast(e.message,'err');}
+}
+async function delExc(id){try{await api('DELETE',`/exceptions/${id}`);toast('Removed.');loadExcs();}catch(e){toast(e.message,'err');}}
+
+async function loadCfg(){
+  try{
+    const rows=await api('GET','/config');
+    document.getElementById('cfg-grid').innerHTML=rows.map(r=>`<div class="cfg-row">
+      <span class="cfg-key">${esc(r.key)}</span>
+      <input class="cfg-in" id="cfg-${esc(r.key)}" value="${esc(r.value)}">
+      <button class="btn-sm" onclick="saveCfg('${esc(r.key)}')">Save</button></div>`).join('');
+  }catch(e){toast(e.message,'err');}
+}
+async function saveCfg(key){try{await api('PATCH','/config',{key,value:document.getElementById('cfg-'+key).value});toast('Saved.');}catch(e){toast(e.message,'err');}}
+
+/* Auto-login if a valid token is stored */
+if(TOKEN){api('GET','/config').then(showApp).catch(()=>showLogin());}
+</script>
 </body>
 </html>

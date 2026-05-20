@@ -1,216 +1,855 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Barbershop — Precision Cuts</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memo's Barber Shop | Σίνδος</title>
+<meta name="description" content="Old School Vibe. Modern Cuts. Memo's Barber Shop στη Σίνδο. Κλείσε ραντεβού online.">
+<link rel="icon" href="/img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#050505;--black2:#0c0c0c;--black3:#141414;
+  --white:#f4f1eb;--pure-white:#ffffff;--gray:#9a9a9a;--gray2:#5d5d5d;--gray3:#2a2a2a;
+  --tan:#c4a484;--tan-dim:rgba(196,164,132,.14);--tan-soft:#d9bf9f;--cream:#e8dfd0;
+  --border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.18);
+  --err:#e25b5b;--ok:#4caf6e;
+  --headline:'Oswald',sans-serif;--body:'Roboto Condensed',sans-serif;--serif:'Playfair Display',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--black);color:#cfcfcf;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+::selection{background:var(--white);color:var(--black)}
+h1,h2,h3,h4,.headline{font-family:var(--headline);text-transform:uppercase;color:var(--white);letter-spacing:.02em}
+a{color:inherit;text-decoration:none}
+.serif-it{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:.005em;color:var(--tan)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ornament{display:flex;align-items:center;justify-content:center;gap:18px;padding:60px 24px;color:var(--tan);font-family:var(--serif);font-style:italic}
+.ornament::before,.ornament::after{content:'';flex:1;max-width:180px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+.ornament-mark{font-size:22px;letter-spacing:.4em;opacity:.85}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
+.reveal.on{opacity:1;transform:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:80;padding:20px 32px;transition:all .3s;display:flex;align-items:center;min-height:84px}
+nav.scrolled{padding:10px 32px;background:rgba(5,5,5,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+.nav-grid{width:100%;max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative}
+.nav-links{flex:1;display:flex;gap:30px;font-family:var(--headline);font-weight:700;font-size:14px;letter-spacing:.22em}
+.nav-link{position:relative;transition:color .2s}
+.nav-link::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1.5px;background:var(--tan);transition:width .25s}
+.nav-link:hover{color:var(--tan)}
+.nav-link:hover::after{width:100%}
+.nav-logo{position:absolute;left:50%;transform:translateX(-50%);display:block;padding:10px 22px;border:2px solid var(--white);background:rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:border-color .2s,transform .2s;text-align:center}
+.nav-logo:hover{border-color:var(--tan);transform:translateX(-50%) translateY(-1px)}
+.nav-logo .est{font-family:var(--headline);font-size:9px;letter-spacing:.32em;color:#bbb;line-height:1;display:block}
+.nav-logo .brand{font-family:var(--headline);font-weight:700;font-size:26px;letter-spacing:.04em;color:var(--white);line-height:1;display:block;margin:5px 0}
+.nav-logo .sub{font-family:var(--headline);font-size:9px;letter-spacing:.32em;color:#bbb;line-height:1;display:block}
+.nav-right{flex:1;display:flex;justify-content:flex-end;align-items:center;gap:22px}
+.nav-social{display:flex;gap:14px}
+.nav-social a{color:var(--gray);font-size:16px;transition:color .2s}
+.nav-social a:hover{color:var(--tan)}
+.nav-book{font-family:var(--headline);font-weight:700;font-size:13px;letter-spacing:.18em;padding:10px 24px;border:2px solid var(--white);color:var(--white);background:transparent;transition:all .2s;cursor:pointer}
+.nav-book:hover{background:var(--white);color:var(--black)}
+.nav-mobile{display:none}
+@media(max-width:1024px){
+  nav{padding:14px 22px}
+  .nav-links,.nav-right{display:none}
+  .nav-grid{justify-content:space-between}
+  .nav-mobile{display:flex;align-items:center;justify-content:space-between;width:100%}
+  .nav-mobile .nav-logo-m{font-family:var(--headline);font-weight:700;font-size:22px;letter-spacing:.06em;color:var(--white)}
+  .nav-mobile-toggle{background:none;border:none;color:var(--white);font-size:24px;cursor:pointer}
+  .nav-logo{position:static;transform:none;display:none}
+}
+.mobile-menu{display:none;position:fixed;top:84px;left:0;right:0;background:var(--black);border-top:1px solid var(--border);padding:24px;flex-direction:column;gap:18px;z-index:79}
+.mobile-menu.on{display:flex}
+.mobile-menu a{font-family:var(--headline);font-size:18px;letter-spacing:.14em;color:var(--white);text-transform:uppercase}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:var(--black)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.32;filter:contrast(1.15) saturate(.85)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,.15) 35%,rgba(5,5,5,.55) 70%,rgba(5,5,5,1) 100%)}
+.hero-content{position:relative;z-index:1;max-width:980px}
+.hero-flourish{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:20px;font-family:var(--serif);font-style:italic;color:var(--tan);font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.hero-flourish span{font-size:11px;opacity:.85}
+.hero-flourish em{font-style:italic;letter-spacing:.32em}
+.hero-logo{height:180px;width:auto;margin:0 auto 24px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.6));transition:transform .4s ease}
+.hero-logo:hover{transform:scale(1.06)}
+.hero h1{font-size:clamp(48px,8vw,96px);font-weight:700;letter-spacing:.01em;line-height:.95;margin-bottom:14px;text-shadow:0 4px 30px rgba(0,0,0,.7)}
+.hero-slogan{font-family:var(--headline);font-style:italic;font-weight:400;font-size:clamp(16px,2.2vw,24px);color:var(--tan);letter-spacing:.32em;text-transform:uppercase;margin-bottom:48px}
+.hero-cta{display:inline-block;font-family:var(--headline);font-weight:700;font-size:14px;letter-spacing:.22em;padding:18px 48px;border:2px solid var(--white);color:var(--white);background:transparent;transition:all .25s;cursor:pointer}
+.hero-cta:hover{background:var(--white);color:var(--black);box-shadow:0 12px 30px rgba(255,255,255,.15)}
+.hero-quickbar{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:36px;font-family:var(--headline);font-size:11px;letter-spacing:.22em;color:var(--gray);text-transform:uppercase;z-index:1;white-space:nowrap;padding:0 24px}
+.hero-quickbar span strong{color:var(--white);font-weight:500}
+.hero-quickbar .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);display:inline-block;margin-right:8px;animation:pulse 2s infinite}
+.hero-quickbar .dot.off{background:var(--err);box-shadow:0 0 10px var(--err);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){.hero-logo{height:130px}.hero-quickbar{position:static;transform:none;margin-top:32px;flex-direction:column;gap:10px;align-items:center}}
+.marquee{background:var(--cream);color:var(--black);overflow:hidden;border-top:1px solid rgba(0,0,0,.15);border-bottom:1px solid rgba(0,0,0,.15);padding:11px 0;position:relative}
+.marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--cream),transparent)}
+.marquee::after{right:0;background:linear-gradient(-90deg,var(--cream),transparent)}
+.marquee-track{display:flex;gap:42px;animation:scroll 48s linear infinite;white-space:nowrap}
+.marquee span{font-family:var(--headline);font-weight:500;font-size:12px;letter-spacing:.42em;text-transform:uppercase;display:inline-flex;align-items:center;gap:42px;color:#2a2520}
+.marquee span::after{content:'✦';color:var(--tan);font-size:10px;opacity:.7}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+section{padding:110px 32px;position:relative}
+.container{max-width:1280px;margin:0 auto}
+.sec-eyebrow{font-family:var(--headline);font-weight:500;font-size:11px;letter-spacing:.45em;color:var(--tan);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.sec-eyebrow::before{content:'';display:block;width:34px;height:1.5px;background:var(--tan)}
+.sec-title{font-size:clamp(36px,5.5vw,64px);font-weight:700;letter-spacing:.01em;line-height:1.02;margin-bottom:18px}
+.sec-divider{width:80px;height:2px;background:var(--white);margin-bottom:28px}
+.sec-sub{font-family:var(--body);font-weight:300;font-size:17px;color:var(--gray);max-width:600px;line-height:1.7;margin-bottom:56px}
+.about{background:var(--black);border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img{overflow:hidden;position:relative;aspect-ratio:4/5}
+.about-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter .7s ease,transform .7s ease}
+.about-img:hover img{filter:grayscale(0);transform:scale(1.04)}
+.about-img::after{content:'';position:absolute;inset:0;border:1px solid var(--tan);transform:translate(14px,14px);z-index:-1}
+.about-text p{font-family:var(--body);font-size:16px;color:var(--gray);line-height:1.85;margin-bottom:18px;font-weight:300}
+.about-text p:first-of-type{color:#e0e0e0;font-size:19px;font-weight:300}
+.pull-quote{font-family:var(--serif)!important;font-style:italic;font-size:18px!important;color:var(--tan)!important;line-height:1.55!important;padding:18px 0 0;margin-top:6px;position:relative}
+.quote-mark{font-family:var(--serif);font-style:italic;font-size:32px;color:var(--tan);opacity:.5;line-height:0;display:inline-block;vertical-align:middle;margin:0 4px}
+.about-meta{margin-top:42px;padding-top:32px;border-top:1px dashed rgba(255,255,255,.12);display:flex;gap:42px;flex-wrap:wrap;align-items:flex-start;position:relative}
+.about-meta::before{content:'✦';position:absolute;top:-9px;left:0;color:var(--tan);font-size:12px;background:var(--black);padding:0 10px}
+.am-item{display:flex;flex-direction:column}
+.am-num{font-family:var(--serif);font-style:italic;font-size:46px;font-weight:500;color:var(--tan);line-height:1;letter-spacing:-.02em}
+.am-lbl{font-family:var(--headline);font-size:10px;letter-spacing:.28em;color:var(--gray);text-transform:uppercase;margin-top:8px}
+.services{background:var(--black2);border-top:1px solid var(--border);position:relative}
+.svc-menu{background:var(--black);border:1px solid var(--border2);padding:36px 44px;position:relative;box-shadow:inset 0 0 0 4px var(--black),inset 0 0 0 5px rgba(196,164,132,.18)}
+.svc-menu::before,.svc-menu::after{content:'✦';position:absolute;left:50%;transform:translateX(-50%);color:var(--tan);font-size:14px;background:var(--black2);padding:0 14px}
+.svc-menu::before{top:-9px}.svc-menu::after{bottom:-9px}
+.svc-menu-title{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--tan);text-align:center;margin-bottom:6px;letter-spacing:.05em}
+.svc-menu-sub{font-family:var(--headline);font-size:11px;letter-spacing:.4em;color:var(--gray);text-align:center;text-transform:uppercase;margin-bottom:36px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.svc-list{display:flex;flex-direction:column;gap:0}
+.svc-row{display:grid;grid-template-columns:48px 1fr auto;align-items:baseline;column-gap:18px;padding:18px 6px;cursor:pointer;transition:all .2s;user-select:none;position:relative;border-bottom:1px dashed rgba(255,255,255,.06)}
+.svc-row:last-child{border-bottom:none}
+.svc-row:hover{background:rgba(196,164,132,.04)}
+.svc-row:hover .svc-price{color:var(--tan-soft)}
+.svc-row.sel{background:rgba(196,164,132,.08)}
+.svc-row.sel::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:60%;background:var(--tan)}
+.svc-num{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--tan);opacity:.7;letter-spacing:.02em}
+.svc-name-wrap{position:relative;display:flex;align-items:baseline;min-width:0}
+.svc-name{font-family:var(--headline);font-size:19px;font-weight:500;color:var(--white);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.svc-leader{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);margin:0 12px;transform:translateY(-4px);min-width:20px}
+.svc-row.sel .svc-leader{border-bottom-color:rgba(196,164,132,.5)}
+.svc-desc{font-family:var(--body);font-style:italic;font-size:13px;color:var(--gray);grid-column:2;margin-top:4px;letter-spacing:.02em}
+.svc-price{font-family:var(--headline);font-size:24px;font-weight:600;color:var(--tan);letter-spacing:.02em;transition:color .2s;display:flex;align-items:baseline;gap:4px}
+.svc-price .euro{font-size:14px;opacity:.7;margin-right:1px}
+.svc-row .svc-dur-inline{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--gray);margin-left:10px;letter-spacing:.04em;grid-column:2}
+.svc-cta-bar{margin-top:38px;text-align:center;display:none}
+.svc-cta-bar.on{display:block}
+.svc-cta-pill{display:inline-flex;align-items:center;gap:22px;padding:18px 28px;background:var(--black3);border:1px solid var(--tan);font-family:var(--headline);font-size:14px;letter-spacing:.12em;color:var(--white)}
+.svc-cta-pill strong{color:var(--tan);font-size:22px}
+.svc-cta-pill a{font-family:var(--headline);font-weight:700;font-size:12px;letter-spacing:.22em;padding:10px 22px;background:var(--white);color:var(--black);text-transform:uppercase;transition:all .2s}
+.svc-cta-pill a:hover{background:var(--tan);color:var(--white)}
+@media(max-width:640px){.svc-row{grid-template-columns:46px 1fr auto;gap:14px;padding:18px 16px}.svc-name{font-size:18px}.svc-desc{font-size:12px;grid-column:2}.svc-price{font-size:22px}}
+.gallery{background:var(--black);border-top:1px solid var(--border)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.g{aspect-ratio:1;overflow:hidden;position:relative}
+.g.wide{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.g img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:filter .7s ease,transform .8s ease}
+.g:hover img{filter:grayscale(0);transform:scale(1.06)}
+@media(max-width:768px){.gallery-grid{grid-template-columns:repeat(2,1fr)}.g.wide{grid-column:span 2;grid-row:auto;aspect-ratio:16/10}}
+#booking{background:var(--black);border-top:1px solid var(--border);min-height:80vh}
+.booking-card{background:var(--black2);border:1px solid var(--border);max-width:920px;margin:0 auto;position:relative;min-height:520px}
+.steps-strip{display:flex;justify-content:center;flex-wrap:wrap;gap:0 14px;padding:26px 28px 22px;border-bottom:1px solid var(--border);font-family:var(--headline);font-size:11px;letter-spacing:.2em;color:var(--gray2);text-transform:uppercase}
+.steps-strip span{padding:4px 0;transition:color .2s,border-color .2s;display:inline-flex;align-items:baseline;gap:7px}
+.steps-strip span .rn{font-family:var(--serif);font-style:italic;font-size:13px;text-transform:none;letter-spacing:.04em;color:var(--gray2);opacity:.85}
+.steps-strip span.act{color:var(--tan);border-bottom:1px solid var(--tan)}
+.steps-strip span.act .rn{color:var(--tan);opacity:1}
+.steps-strip span.done{color:#7a7a7a}
+.steps-strip span.done .rn{color:#7a7a7a}
+.steps-strip .sep{color:#3a3a3a;letter-spacing:0}
+.step-panel{display:none;padding:44px 36px}
+.step-panel.act{display:block}
+.step-h{font-family:var(--headline);font-size:26px;font-weight:600;color:var(--white);letter-spacing:.04em;margin-bottom:28px;text-transform:uppercase;display:flex;align-items:center;gap:16px}
+.step-h .back-btn{background:none;border:1px solid var(--border2);color:var(--gray);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:14px}
+.step-h .back-btn:hover{border-color:var(--white);color:var(--white)}
+.bk-barbers{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.bk-barber{cursor:pointer;border:1px solid var(--border2);padding:24px 14px;text-align:center;transition:all .2s;background:var(--black)}
+.bk-barber:hover{border-color:var(--tan)}
+.bk-barber.sel{background:var(--white);border-color:var(--white)}
+.bk-barber.sel .bk-bname,.bk-barber.sel .bk-bbio{color:var(--black)}
+.bk-bavatar{width:62px;height:62px;border-radius:50%;margin:0 auto 12px;overflow:hidden;background:var(--black3);display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:22px}
+.bk-bavatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4)}
+.bk-barber.any .bk-bavatar{background:var(--tan-dim);color:var(--tan)}
+.bk-bname{font-family:var(--headline);font-size:15px;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
+.bk-bbio{font-family:var(--body);font-size:12px;color:var(--gray);margin-top:4px;font-weight:300;line-height:1.4}
+.date-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px;margin-bottom:36px}
+.date-cell{background:var(--black);border:1px solid var(--border2);padding:14px 6px;text-align:center;cursor:pointer;transition:all .15s;font-family:var(--headline)}
+.date-cell:hover{border-color:var(--tan)}
+.date-cell.sel{background:var(--white);border-color:var(--white)}
+.date-cell.sel .dc-d,.date-cell.sel .dc-w{color:var(--black)}
+.date-cell.closed{opacity:.3;cursor:not-allowed}
+.dc-w{font-size:10px;letter-spacing:.22em;color:var(--gray);text-transform:uppercase;display:block}
+.dc-d{font-size:22px;font-weight:600;color:var(--white);display:block;line-height:1.2;margin-top:4px}
+.dc-m{font-size:9px;letter-spacing:.18em;color:var(--gray);text-transform:uppercase;display:block;margin-top:2px}
+.shift-block{margin-bottom:22px}
+.shift-h{font-family:var(--headline);font-size:12px;letter-spacing:.28em;color:var(--tan);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.shift-h::before{content:'';width:18px;height:1px;background:var(--tan)}
+.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:6px}
+.slot{background:var(--black);border:1px solid var(--border2);color:var(--white);font-family:var(--headline);font-size:14px;font-weight:500;letter-spacing:.05em;padding:11px 0;cursor:pointer;transition:all .15s;text-align:center}
+.slot:hover{border-color:var(--tan);color:var(--tan)}
+.slot.sel{background:var(--white);border-color:var(--white);color:var(--black);font-weight:700}
+.slot-empty{font-family:var(--body);font-size:14px;color:var(--gray);padding:24px 0}
+.fld{margin-bottom:18px}
+.fld input{width:100%;background:var(--black);border:1px solid var(--border2);color:var(--white);font-family:var(--body);font-size:15px;padding:15px 18px;outline:none;letter-spacing:.04em;transition:border-color .2s}
+.fld input::placeholder{color:var(--gray2);font-family:var(--headline);letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+.fld input:focus{border-color:var(--tan)}
+.otp-in{font-family:var(--headline);font-size:28px;font-weight:600;letter-spacing:.5em;text-align:center;max-width:240px;padding-left:30px!important}
+.method-tabs{display:flex;margin-bottom:24px;border:1px solid var(--border2)}
+.mtab{flex:1;background:var(--black);border:none;border-right:1px solid var(--border2);color:var(--gray);font-family:var(--headline);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.mtab:last-child{border-right:none}
+.mtab.on{background:var(--white);color:var(--black);font-weight:700}
+.mtab:not(.on):hover{color:var(--tan)}
+.fb-sep{display:flex;align-items:center;gap:14px;margin:22px 0;font-family:var(--headline);font-size:10px;letter-spacing:.24em;color:var(--gray2);text-transform:uppercase}
+.fb-sep::before,.fb-sep::after{content:'';flex:1;height:1px;background:var(--border)}
+.fb-btn{width:100%;background:#1877f2;border:none;color:#fff;font-family:var(--headline);font-weight:700;font-size:13px;letter-spacing:.12em;padding:14px;cursor:pointer;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.fb-btn:hover{opacity:.9}
+.fb-btn:disabled{opacity:.4;cursor:not-allowed}
+.verify-card{margin-bottom:24px;padding:26px 26px 24px;background:var(--black);border:1px solid var(--border2);position:relative;text-align:center}
+.verify-card::before,.verify-card::after{content:'✦';position:absolute;top:-9px;color:var(--tan);font-size:13px;background:var(--black2);padding:0 10px}
+.verify-card::before{left:24px}.verify-card::after{right:24px}
+.verify-card .vc-banner{font-family:var(--serif);font-style:italic;font-size:11px;letter-spacing:.32em;color:var(--gray);text-transform:uppercase;margin-bottom:14px;text-align:center}
+.verify-card .vc-status{font-family:var(--headline);font-size:11px;letter-spacing:.24em;color:var(--ok);text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px}
+.verify-card .vc-status .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
+.verify-card .vc-phone{font-family:var(--body);font-size:13px;color:var(--gray);margin-top:8px}
+.verify-card .vc-code{margin-top:18px;font-family:var(--headline);font-size:44px;font-weight:600;letter-spacing:.32em;color:var(--tan);display:none;padding:14px 0;border-top:1px dashed rgba(196,164,132,.3);border-bottom:1px dashed rgba(196,164,132,.3)}
+.verify-card .vc-code.show{display:block;animation:revealCode .4s ease}
+.verify-card .vc-code-lbl{font-family:var(--serif);font-style:italic;font-size:10px;letter-spacing:.22em;color:var(--gray2);margin-top:10px;display:none}
+.verify-card .vc-code.show + .vc-code-lbl{display:block}
+@keyframes revealCode{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.sum-box{background:var(--black);border:1px solid var(--border);padding:22px;margin-bottom:24px}
+.sum-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);gap:16px}
+.sum-row:last-child{border:none}
+.sum-lbl{color:var(--gray);font-family:var(--headline);letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+.sum-val{font-weight:600;text-align:right;color:var(--white)}
+.sum-total{padding-top:14px;margin-top:6px;border-top:1px solid var(--tan)!important}
+.sum-total .sum-val{font-family:var(--headline);font-size:22px;color:var(--tan)}
+.bk-foot{padding:20px 28px;border-top:1px solid var(--border);background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.bk-total{font-family:var(--headline);font-size:14px;letter-spacing:.16em;color:var(--gray);text-transform:uppercase}
+.bk-total strong{color:var(--tan);font-size:22px;margin-left:6px;font-weight:700}
+.bk-next{background:var(--white);color:var(--black);font-family:var(--headline);font-weight:700;font-size:13px;letter-spacing:.22em;padding:14px 36px;border:none;cursor:pointer;text-transform:uppercase;transition:all .2s}
+.bk-next:hover{background:var(--tan);color:var(--white)}
+.bk-next:disabled{opacity:.25;cursor:not-allowed}
+.err{font-family:var(--body);font-size:13px;color:var(--err);margin-top:10px;display:none}
+.err.on{display:block}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(196,164,132,.25);border-top-color:var(--tan);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.suc-panel{display:none;text-align:center;padding:80px 36px}
+.suc-panel.on{display:block}
+.suc-check{font-size:64px;color:var(--ok);line-height:1;margin-bottom:20px}
+.suc-title{font-family:var(--headline);font-size:42px;font-weight:700;letter-spacing:.04em;color:var(--white);text-transform:uppercase;margin-bottom:10px}
+.suc-sub{font-family:var(--body);font-size:15px;color:var(--gray);margin-bottom:40px}
+.suc-card{display:inline-block;background:var(--black);border:1px solid var(--tan);padding:32px 40px;text-align:left;min-width:340px}
+.suc-newbk{margin-top:32px;display:inline-block;font-family:var(--headline);font-size:13px;letter-spacing:.22em;color:var(--white);border-bottom:1px solid var(--white);padding-bottom:3px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;text-transform:uppercase}
+.suc-newbk:hover{color:var(--tan);border-bottom-color:var(--tan)}
+#contact{background:var(--black2);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:0;border:1px solid var(--border)}
+.contact-info{padding:48px 44px;background:var(--black);border-right:1px solid var(--border)}
+.ci-block{margin-bottom:34px}
+.ci-block:last-child{margin-bottom:0}
+.ci-lbl{font-family:var(--headline);font-size:10px;letter-spacing:.3em;color:var(--tan);text-transform:uppercase;margin-bottom:10px}
+.ci-val{font-family:var(--body);font-size:16px;color:var(--white);line-height:1.6;display:block;transition:color .2s}
+a.ci-val:hover{color:var(--tan)}
+.hours-list{display:grid;grid-template-columns:auto 1fr;gap:9px 22px;font-family:var(--body);font-size:14px}
+.hours-list dt{font-family:var(--headline);letter-spacing:.1em;color:var(--gray);text-transform:uppercase;font-size:12px}
+.hours-list dd{color:var(--white);text-align:right;font-variant-numeric:tabular-nums}
+.hours-list .today{color:var(--tan)!important;font-weight:700}
+.contact-map{position:relative;overflow:hidden;background:var(--black2);min-height:480px}
+.contact-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.85) invert(.93) contrast(.95)}
+.social-pills{display:flex;gap:10px;margin-top:8px}
+.social-pills a{display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;border:1px solid var(--border2);color:var(--gray);font-family:var(--headline);font-size:13px;font-weight:700;letter-spacing:.05em;transition:all .15s}
+.social-pills a:hover{border-color:var(--tan);color:var(--tan)}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}.contact-info{border-right:none;border-bottom:1px solid var(--border)}.about-grid{grid-template-columns:1fr;gap:48px}}
+footer{background:var(--black);padding:48px 32px;border-top:1px solid var(--border)}
+.footer-grid{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.foot-brand h3{font-family:var(--headline);font-size:22px;letter-spacing:.06em;color:var(--white);text-transform:uppercase;margin-bottom:6px}
+.foot-brand p{font-family:var(--body);font-size:13px;color:var(--gray2);line-height:1.6}
+.foot-rt{text-align:right;font-family:var(--headline);font-size:10px;letter-spacing:.22em;color:var(--gray2);text-transform:uppercase}
+.foot-rt a{color:var(--gray);border-bottom:1px solid transparent;transition:all .2s}
+.foot-rt a:hover{color:var(--tan);border-bottom-color:var(--tan)}
+@media(max-width:640px){.footer-grid{flex-direction:column;text-align:center}.foot-rt{text-align:center}section{padding:80px 22px}}
+.sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--black);border-top:1px solid var(--border);padding:10px 14px;z-index:60;gap:8px}
+.sticky-bar a{flex:1;font-family:var(--headline);font-weight:700;font-size:13px;letter-spacing:.18em;text-align:center;padding:13px 0;text-transform:uppercase;transition:all .15s}
+.sticky-bar .sb-call{border:1px solid var(--white);color:var(--white)}
+.sticky-bar .sb-book{background:var(--white);color:var(--black)}
+@media(max-width:768px){.sticky-bar{display:flex}footer{padding-bottom:80px}}
+</style>
 </head>
-<body class="landing">
+<body>
 
-<!-- ══ NAVIGATION ════════════════════════════════════════════════════════════ -->
-<nav class="l-nav" id="l-nav">
-  <div class="l-nav-inner">
-    <a href="/" class="l-nav-brand">The Barbershop</a>
-    <div class="l-nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#hours">Hours</a>
+<div class="grain"></div>
+
+<nav id="nav">
+  <div class="nav-grid">
+    <div class="nav-links">
+      <a href="#services" class="nav-link">Υπηρεσίες</a>
+      <a href="#about" class="nav-link">Το Κουρείο</a>
+      <a href="#contact" class="nav-link">Επικοινωνία</a>
     </div>
-    <a href="/booking.html" class="btn btn-primary btn-sm">Book Now</a>
+    <a href="/" class="nav-logo">
+      <span class="est">EST. 2015</span>
+      <span class="brand">MEMO'S</span>
+      <span class="sub">BARBER SHOP</span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-social">
+        <a id="nav-ig" target="_blank" rel="noopener" href="#" aria-label="Instagram">IG</a>
+        <a id="nav-fb" target="_blank" rel="noopener" href="#" aria-label="Facebook">FB</a>
+      </div>
+      <a href="#booking" class="nav-book">Κλείσε Ραντεβού</a>
+    </div>
+    <div class="nav-mobile">
+      <a href="/" class="nav-logo-m">MEMO'S</a>
+      <button class="nav-mobile-toggle" onclick="document.getElementById('mm').classList.toggle('on')">☰</button>
+    </div>
   </div>
 </nav>
+<div id="mm" class="mobile-menu">
+  <a href="#services" onclick="document.getElementById('mm').classList.remove('on')">Υπηρεσίες</a>
+  <a href="#about" onclick="document.getElementById('mm').classList.remove('on')">Το Κουρείο</a>
+  <a href="#contact" onclick="document.getElementById('mm').classList.remove('on')">Επικοινωνία</a>
+  <a href="#booking" onclick="document.getElementById('mm').classList.remove('on')" style="background:var(--white);color:var(--black);padding:14px;text-align:center">Κλείσε Ραντεβού</a>
+</div>
 
-<!-- ══ HERO ══════════════════════════════════════════════════════════════════ -->
-<section class="l-hero" id="hero">
-  <div class="l-hero-bg"></div>
-  <div class="l-hero-content">
-    <p class="l-eyebrow">Est. 2020 · [Your City]</p>
-    <h1 class="l-hero-title">The<br>Barber<span class="l-hero-title-accent">shop</span></h1>
-    <p class="l-hero-sub">Precision cuts. Clean lines.<br>Every single time.</p>
-    <div class="l-hero-actions">
-      <a href="/booking.html" class="btn btn-primary">Book an Appointment</a>
-      <a href="#about" class="btn btn-outline">Learn More</a>
-    </div>
+<section class="hero">
+  <div class="hero-bg"><img src="/img/hero.webp" alt=""></div>
+  <div class="hero-content">
+    <div class="hero-flourish"><span>✦</span><em>Est. 2015</em><span>✦</span></div>
+    <img src="/img/logo.webp" alt="Memo's Barbershop" class="hero-logo">
+    <h1>Memo's <span class="serif-it" style="font-size:.85em;display:inline-block;margin-top:6px">Barbershop</span></h1>
+    <p class="hero-slogan" id="hero-slogan">Old School Vibe · Modern Cuts</p>
+    <a href="#booking" class="hero-cta">Κλείσε Ραντεβού</a>
   </div>
-  <a href="#about" class="l-scroll-hint" aria-label="Scroll down">
-    <span class="l-scroll-arrow">↓</span>
-  </a>
-</section>
-
-<!-- ══ ABOUT ═════════════════════════════════════════════════════════════════ -->
-<section class="l-section" id="about">
-  <div class="container-wide l-about-grid">
-    <div class="l-about-text">
-      <p class="l-label">About Us</p>
-      <h2 class="l-heading">Crafted with care,<br>cut with precision.</h2>
-      <p class="l-body">
-        We are more than a barbershop — we are a space where tradition meets
-        modern technique. Every client who walks through our door is treated
-        to an experience that goes beyond the chair.
-      </p>
-      <p class="l-body">
-        From classic fades to sharp line-ups, our team brings years of expertise
-        and genuine passion to every cut. Walk in, unwind, and leave feeling
-        your best.
-      </p>
-      <a href="/booking.html" class="btn btn-outline" style="margin-top:24px">Reserve Your Spot</a>
-    </div>
-    <div class="l-about-image">
-      <!-- Replace with: <img src="/images/about.jpg" alt="Inside the barbershop"> -->
-      <div class="l-placeholder" data-label="Add your photo here"></div>
-    </div>
+  <div class="hero-quickbar">
+    <span><span class="dot" id="open-dot"></span> <strong id="open-status">Σήμερα</strong> <span id="open-hours">—</span></span>
+    <span>★ <strong id="qb-rating">4.9</strong> · <span id="qb-reviews">180</span> Αξιολογήσεις</span>
+    <span>📍 <strong>Σίνδος</strong>, Θεσσαλονίκη</span>
   </div>
 </section>
 
-<!-- ══ STATS ══════════════════════════════════════════════════════════════════ -->
-<div class="l-stats-bar">
-  <div class="container-wide l-stats-grid">
-    <div class="l-stat">
-      <span class="l-stat-num">5+</span>
-      <span class="l-stat-label">Years in business</span>
-    </div>
-    <div class="l-stat-divider"></div>
-    <div class="l-stat">
-      <span class="l-stat-num">2,000+</span>
-      <span class="l-stat-label">Happy clients</span>
-    </div>
-    <div class="l-stat-divider"></div>
-    <div class="l-stat">
-      <span class="l-stat-num">100%</span>
-      <span class="l-stat-label">Satisfaction guarantee</span>
-    </div>
-    <div class="l-stat-divider"></div>
-    <div class="l-stat">
-      <span class="l-stat-num">4.9 ★</span>
-      <span class="l-stat-label">Average rating</span>
-    </div>
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Classic Cuts</span><span>Hot Towel Shave</span><span>Beard Care</span><span>Skin Fade</span><span>Old School</span><span>Modern Style</span>
+    <span>Classic Cuts</span><span>Hot Towel Shave</span><span>Beard Care</span><span>Skin Fade</span><span>Old School</span><span>Modern Style</span>
   </div>
 </div>
 
-<!-- ══ SERVICES ═══════════════════════════════════════════════════════════════ -->
-<section class="l-section l-section-alt" id="services">
-  <div class="container-wide">
-    <p class="l-label">What We Offer</p>
-    <h2 class="l-heading">Our services</h2>
-    <p class="l-subheading">Every service is performed with precision tools and premium products.</p>
-    <div class="l-services-grid" id="l-services-grid">
-      <!-- Populated by landing.js -->
-      <div class="l-service-skeleton"></div>
-      <div class="l-service-skeleton"></div>
-      <div class="l-service-skeleton"></div>
-    </div>
-    <div style="text-align:center;margin-top:40px">
-      <a href="/booking.html" class="btn btn-primary">Book an Appointment</a>
-    </div>
-  </div>
-</section>
+<div class="ornament"><span class="ornament-mark">✦ ⚜ ✦</span></div>
 
-<!-- ══ GALLERY ════════════════════════════════════════════════════════════════ -->
-<section class="l-section" id="gallery">
-  <div class="container-wide">
-    <p class="l-label">Our Work</p>
-    <h2 class="l-heading">The results speak<br>for themselves.</h2>
-    <div class="l-gallery-grid">
-      <!-- Replace each .l-placeholder with <img src="..." alt="..."> when ready -->
-      <div class="l-gallery-item l-gallery-item--tall">
-        <div class="l-placeholder" data-label="Photo 1"></div>
-      </div>
-      <div class="l-gallery-item">
-        <div class="l-placeholder" data-label="Photo 2"></div>
-      </div>
-      <div class="l-gallery-item">
-        <div class="l-placeholder" data-label="Photo 3"></div>
-      </div>
-      <div class="l-gallery-item">
-        <div class="l-placeholder" data-label="Photo 4"></div>
-      </div>
-      <div class="l-gallery-item l-gallery-item--wide">
-        <div class="l-placeholder" data-label="Photo 5"></div>
-      </div>
-      <div class="l-gallery-item">
-        <div class="l-placeholder" data-label="Photo 6"></div>
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-img"><img src="/img/cut.webp" alt="Memo στη δουλειά"></div>
+    <div class="about-text">
+      <div class="sec-eyebrow">Το Κουρείο</div>
+      <h2 class="sec-title">Παράδοση. <span class="serif-it">Τέχνη.</span><br>Κουρείο.</h2>
+      <div class="sec-divider"></div>
+      <p id="about-text-1">—</p>
+      <p class="pull-quote"><span class="quote-mark">«</span> Δεν είναι απλά ένα κούρεμα. Είναι μια συνήθεια. Έλα για το κούρεμα — μείνε για την κουβέντα. <span class="quote-mark">»</span></p>
+      <div class="about-meta">
+        <div class="am-item"><span class="am-num" id="am-years">9+</span><span class="am-lbl">Χρόνια στη Σίνδο</span></div>
+        <div class="am-item"><span class="am-num" id="am-rating">4.9</span><span class="am-lbl">Αξιολόγηση</span></div>
+        <div class="am-item"><span class="am-num" id="am-reviews">180+</span><span class="am-lbl">Πιστοί Πελάτες</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ HOURS + LOCATION ═══════════════════════════════════════════════════════ -->
-<section class="l-section l-section-alt" id="hours">
-  <div class="container-wide l-info-grid">
-
-    <!-- Opening hours (pulled from API) -->
-    <div class="l-info-col">
-      <p class="l-label">Opening Hours</p>
-      <h2 class="l-heading">When we're open</h2>
-      <div class="l-hours-table" id="l-hours-table">
-        <!-- Populated by landing.js -->
-        <div class="l-hours-skeleton"></div>
-      </div>
-    </div>
-
-    <!-- Location & contact -->
-    <div class="l-info-col">
-      <p class="l-label">Find Us</p>
-      <h2 class="l-heading">Come visit</h2>
-
-      <!-- Replace with real embed or image of map -->
-      <div class="l-map-placeholder" data-label="Embed your map here"></div>
-
-      <div class="l-contact-details">
-        <div class="l-contact-row">
-          <span class="l-contact-icon">📍</span>
-          <div>
-            <strong>123 Barber Street</strong><br>
-            <span class="text-muted">Your City, State 12345</span>
-          </div>
-        </div>
-        <div class="l-contact-row">
-          <span class="l-contact-icon">📞</span>
-          <div>
-            <strong>+1 (234) 567-8901</strong><br>
-            <span class="text-muted">Call or WhatsApp</span>
-          </div>
-        </div>
-        <div class="l-contact-row">
-          <span class="l-contact-icon">✉️</span>
-          <div>
-            <strong>hello@thebarbershop.com</strong><br>
-            <span class="text-muted">We reply within 24 hours</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══ BOOK CTA ═══════════════════════════════════════════════════════════════ -->
-<section class="l-book-cta" id="book">
+<section class="services" id="services">
   <div class="container">
-    <p class="l-label" style="color:rgba(255,255,255,.4)">Ready?</p>
-    <h2 class="l-cta-heading">Book your appointment<br>online in 60 seconds.</h2>
-    <p class="l-cta-sub">No phone calls. No waiting. Pick your service, choose a time, done.</p>
-    <a href="/booking.html" class="btn btn-primary l-cta-btn">Book Now →</a>
+    <div class="sec-eyebrow">Υπηρεσίες</div>
+    <h2 class="sec-title">Ο <span class="serif-it">τιμοκατάλογος</span> μας</h2>
+    <div class="sec-divider"></div>
+    <p class="sec-sub">Πάτα στην υπηρεσία που σε ενδιαφέρει για να την προσθέσεις στο ραντεβού σου. Μπορείς να επιλέξεις περισσότερες από μία — το ημερολόγιο θα δεσμεύσει αρκετό χρόνο.</p>
+    <div class="svc-menu">
+      <div class="svc-menu-title">— Memo's Price List —</div>
+      <div class="svc-menu-sub">Established 2015</div>
+      <div class="svc-list" id="svc-list"></div>
+    </div>
+    <div class="svc-cta-bar" id="svc-cta">
+      <div class="svc-cta-pill">
+        <span><span id="sel-count">0</span> επιλεγμένες · <strong id="sel-total">€0.00</strong> · <span id="sel-dur">0</span>′</span>
+        <a href="#booking">Συνέχεια →</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ FOOTER ═════════════════════════════════════════════════════════════════ -->
-<footer class="l-footer">
-  <div class="container-wide l-footer-inner">
-    <span class="brand">The Barbershop</span>
-    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-      <p class="l-footer-copy" style="margin:0">© 2025 The Barbershop. All rights reserved.</p>
-      <a href="/privacy.html" class="header-link">Privacy Policy</a>
-      <a href="/terms.html" class="header-link">Terms</a>
+<div class="ornament"><span class="ornament-mark">✦</span></div>
+
+<section class="gallery">
+  <div class="container" style="margin-bottom:48px">
+    <div class="sec-eyebrow">Η Γωνιά Μας</div>
+    <h2 class="sec-title"><span class="serif-it">Inside</span> the shop</h2>
+    <div class="sec-divider"></div>
+  </div>
+  <!-- Drop the shop's real photos in public/img/ as gallery-1.webp … gallery-5.webp.
+       Until a file exists, the onerror fallback shows a placeholder, so nothing breaks. -->
+  <div class="gallery-grid" style="max-width:1440px;margin:0 auto">
+    <div class="g wide"><img src="/img/gallery-1.jpg" alt="Περιποίηση γενιών στο Memo's" loading="lazy" onerror="this.onerror=null;this.src='/img/cut.webp'"></div>
+    <div class="g"><img src="/img/gallery-2.jpg" alt="Memo's Barber Shop" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=700&q=80'"></div>
+    <div class="g"><img src="/img/cut.webp" alt="Περιποίηση γενιών" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=80'"></div>
+    <div class="g"><img src="/img/gallery-3.webp" alt="Ο χώρος του κουρείου" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1593702288056-7927a7ed7e75?auto=format&fit=crop&w=700&q=80'"></div>
+    <div class="g"><img src="/img/gallery-4.webp" alt="Λεπτομέρεια κουρέματος" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1582771498000-8aaae5ce3a0e?auto=format&fit=crop&w=700&q=80'"></div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="container">
+    <div class="sec-eyebrow" style="justify-content:center">Online Κράτηση</div>
+    <h2 class="sec-title" style="text-align:center">Κλείσε το <span class="serif-it">ραντεβού</span> σου</h2>
+    <div class="sec-divider" style="margin:0 auto 56px"></div>
+
+    <div class="booking-card">
+      <div class="steps-strip" id="steps-strip">
+        <span class="act" data-s="1"><span class="rn">i.</span>Υπηρεσίες</span> <span class="sep">/</span>
+        <span data-s="2"><span class="rn">ii.</span>Κουρέας</span> <span class="sep">/</span>
+        <span data-s="3"><span class="rn">iii.</span>Ημερομηνία</span> <span class="sep">/</span>
+        <span data-s="4"><span class="rn">iv.</span>Ώρα</span> <span class="sep">/</span>
+        <span data-s="5"><span class="rn">v.</span>Στοιχεία</span> <span class="sep">/</span>
+        <span data-s="6"><span class="rn">vi.</span>Επιβεβαίωση</span>
+      </div>
+
+      <div class="suc-panel" id="suc">
+        <div class="suc-check">✓</div>
+        <h3 class="suc-title">Κράτηση Ολοκληρώθηκε</h3>
+        <p class="suc-sub">Σας περιμένουμε στο κουρείο. Τα στοιχεία της κράτησης:</p>
+        <div class="suc-card" id="suc-card"></div>
+        <div><button class="suc-newbk" onclick="location.reload()">Νέα Κράτηση</button></div>
+      </div>
+
+      <div class="step-panel act" id="sp-1">
+        <h3 class="step-h">Επιλέξε Υπηρεσίες</h3>
+        <p style="color:var(--gray);font-size:14px;margin-bottom:20px">Διάλεξε από τη λίστα πιο πάνω. Μπορείς να επιλέξεις όσες θέλεις.</p>
+        <p class="err" id="e1">Επίλεξε τουλάχιστον μία υπηρεσία.</p>
+      </div>
+
+      <div class="step-panel" id="sp-2">
+        <h3 class="step-h"><button class="back-btn" onclick="go(1)">←</button>Επιλέξε Κουρέα</h3>
+        <div class="bk-barbers" id="bk-barbers"></div>
+        <p class="err" id="e2">Επίλεξε κουρέα.</p>
+      </div>
+
+      <div class="step-panel" id="sp-3">
+        <h3 class="step-h"><button class="back-btn" onclick="go(2)">←</button>Διάλεξε Ημερομηνία</h3>
+        <div class="date-rail" id="date-rail"></div>
+        <p class="err" id="e3">Διάλεξε ημερομηνία.</p>
+      </div>
+
+      <div class="step-panel" id="sp-4">
+        <h3 class="step-h"><button class="back-btn" onclick="go(3)">←</button>Διάλεξε Ώρα</h3>
+        <div class="spin" id="slots-spin" style="display:none"></div>
+        <div id="slots-shifts"></div>
+        <p class="err" id="e4">Διάλεξε ώρα.</p>
+      </div>
+
+      <div class="step-panel" id="sp-5">
+        <h3 class="step-h"><button class="back-btn" onclick="go(4)">←</button>Στοιχεία</h3>
+        <div class="sum-box" id="sum-box"></div>
+        <div class="method-tabs">
+          <button type="button" class="mtab on" id="mtab-sms" onclick="setMethod('sms')">📱 Με SMS</button>
+          <button type="button" class="mtab" id="mtab-fb" onclick="setMethod('fb')"><span style="font-weight:900">f</span> Με Facebook</button>
+        </div>
+        <div id="method-sms">
+          <div class="fld"><input type="text" id="cust-name" placeholder="Ονοματεπώνυμο"></div>
+          <div class="fld"><input type="tel" id="cust-phone" placeholder="Κινητό (+30 ...)"></div>
+          <p style="font-size:11px;color:var(--gray2);font-family:var(--body)">Θα λάβεις 4-ψήφιο κωδικό επιβεβαίωσης με SMS.</p>
+        </div>
+        <div id="method-fb" style="display:none">
+          <div class="fld"><input type="tel" id="fb-phone" placeholder="Κινητό (προαιρετικό · για υπενθυμίσεις)"></div>
+          <button class="fb-btn" id="fb-btn" onclick="fbBook()"><span>f</span> Συνέχεια με Facebook</button>
+          <p id="fb-note" style="font-size:12px;color:var(--gray2);text-align:center;margin-top:12px;font-family:var(--body)">Χωρίς SMS — επιβεβαίωση μέσω του λογαριασμού σου.</p>
+        </div>
+        <p class="err" id="e5"></p>
+      </div>
+
+      <div class="step-panel" id="sp-6">
+        <h3 class="step-h"><button class="back-btn" onclick="go(5)">←</button>Επιβεβαίωση</h3>
+        <div class="verify-card">
+          <div class="vc-banner">— Κωδικός Επαλήθευσης —</div>
+          <div class="vc-status" id="vc-status"><span class="dot"></span> <span id="vc-status-text">Στέλνουμε τον κωδικό...</span></div>
+          <div class="vc-phone" id="vc-phone"></div>
+          <div class="vc-code" id="vc-code"></div>
+          <div class="vc-code-lbl">— ελήφθη μέσω SMS —</div>
+        </div>
+        <div class="fld"><input type="text" id="otp-in" class="otp-in" placeholder="0000" maxlength="4" inputmode="numeric"></div>
+        <p class="err" id="e6"></p>
+      </div>
+
+      <div class="bk-foot" id="bk-foot">
+        <div class="bk-total">Σύνολο <strong id="bk-total">€0</strong></div>
+        <button class="bk-next" id="bk-next" onclick="onNext()" disabled>Συνέχεια</button>
+      </div>
     </div>
-    <a href="/admin.html" class="header-link">Admin</a>
+  </div>
+</section>
+
+<div class="ornament"><span class="ornament-mark">✦ ⚜ ✦</span></div>
+
+<section id="contact">
+  <div class="container" style="margin-bottom:48px">
+    <div class="sec-eyebrow">Επικοινωνία</div>
+    <h2 class="sec-title">Πέρνα από <span class="serif-it">το μαγαζί</span></h2>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="ci-block"><div class="ci-lbl">Διεύθυνση</div><a class="ci-val" id="cn-addr" target="_blank" rel="noopener">—</a></div>
+        <div class="ci-block"><div class="ci-lbl">Τηλέφωνο</div><a class="ci-val" id="cn-phone">—</a></div>
+        <div class="ci-block"><div class="ci-lbl">Email</div><a class="ci-val" id="cn-email">—</a></div>
+        <div class="ci-block"><div class="ci-lbl">Ωράριο</div><dl class="hours-list" id="cn-hours"></dl></div>
+        <div class="ci-block"><div class="ci-lbl">Social</div>
+          <div class="social-pills">
+            <a id="cn-ig" target="_blank" rel="noopener" href="#">IG</a>
+            <a id="cn-fb" target="_blank" rel="noopener" href="#">FB</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-map">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=22.7995%2C40.6618%2C22.8195%2C40.6738&layer=mapnik&marker=40.6678%2C22.8093" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <h3 id="foot-name">Memo's Barber Shop</h3>
+      <p>Σίνδος, Θεσσαλονίκη<br><span id="foot-tagline">Old School Vibe · Modern Cuts</span></p>
+    </div>
+    <div class="social-pills">
+      <a id="ft-ig" target="_blank" rel="noopener" href="#">IG</a>
+      <a id="ft-fb" target="_blank" rel="noopener" href="#">FB</a>
+    </div>
+    <div class="foot-rt">
+      <p>© <span id="year"></span> · Memo's Barber Shop</p>
+      <p><a href="/privacy.html">Απόρρητο</a> · <a href="/terms.html">Όροι</a></p>
+    </div>
   </div>
 </footer>
 
-<script src="/js/landing.js"></script>
+<div class="sticky-bar">
+  <a href="#" class="sb-call" id="sb-call">Κάλεσε</a>
+  <a href="#booking" class="sb-book">Κλείσε Ραντεβού</a>
+</div>
+
+<script>
+const DAYS_EL=['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή'];
+const DAYS_EL_SHORT=['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
+const MONTHS_EL=['Ιαν','Φεβ','Μαρ','Απρ','Μαϊ','Ιουν','Ιουλ','Αυγ','Σεπ','Οκτ','Νοε','Δεκ'];
+
+const S={cfg:{},svcs:[],barbers:[],sched:{},selSvcs:[],selBarber:null,selDate:null,selSlot:null,step:1,phone:null};
+
+document.getElementById('year').textContent=new Date().getFullYear();
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
+
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}});
+},{threshold:.12,rootMargin:'-40px 0px'});
+document.querySelectorAll('section .container > *, section > .container, .sec-title, .sec-eyebrow, .sec-divider, .sec-sub, .svc-menu, .gallery-grid .g, .contact-info > *, .ornament').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+
+function isoWd(d){return (d.getDay()+6)%7;}                 // 0=Mon
+function winParts(r){
+  if(!r||!r.is_enabled) return [];
+  const p=[];
+  if(r.open_time&&r.close_time) p.push([r.open_time,r.close_time]);
+  if(r.open_time_2&&r.close_time_2) p.push([r.open_time_2,r.close_time_2]);
+  return p;
+}
+
+async function init(){
+  try{
+    const d=await (await fetch('/api/config')).json();
+    S.cfg=d.config||{};S.svcs=d.services||[];S.barbers=d.barbers||[];
+    (S.cfg.schedule||[]).forEach(r=>S.sched[r.weekday]=r);
+    applyCfg();renderSvcs();renderBarbers();renderHours();renderDateRail();
+  }catch(e){console.error(e)}
+  loadFb();
+}
+
+function applyCfg(){
+  const c=S.cfg;
+  if(c.shop_name){document.title=c.shop_name+' | Σίνδος';document.getElementById('foot-name').textContent=c.shop_name;}
+  if(c.tagline){document.getElementById('hero-slogan').textContent=c.tagline;document.getElementById('foot-tagline').textContent=c.tagline;}
+  if(c.about_text) document.getElementById('about-text-1').textContent=c.about_text;
+  if(c.address) document.getElementById('cn-addr').innerHTML=c.address.replace(', ','<br>');
+  document.getElementById('cn-addr').href=c.maps_url||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.address||"Memo's Barbershop Sindos"));
+  if(c.phone){const tel='tel:'+c.phone.replace(/\s+/g,'');document.getElementById('cn-phone').textContent=c.phone;document.getElementById('cn-phone').href=tel;document.getElementById('sb-call').href=tel;}
+  if(c.email){document.getElementById('cn-email').textContent=c.email;document.getElementById('cn-email').href='mailto:'+c.email;}
+  if(c.instagram)['nav-ig','cn-ig','ft-ig'].forEach(id=>document.getElementById(id).href=c.instagram);
+  if(c.facebook)['nav-fb','cn-fb','ft-fb'].forEach(id=>document.getElementById(id).href=c.facebook);
+  if(c.rating){document.getElementById('qb-rating').textContent=c.rating;document.getElementById('am-rating').textContent=c.rating;}
+  if(c.review_count){document.getElementById('qb-reviews').textContent=c.review_count;document.getElementById('am-reviews').textContent=c.review_count+'+';}
+  if(c.established_year)document.getElementById('am-years').textContent=(new Date().getFullYear()-parseInt(c.established_year))+'+';
+}
+
+function renderHours(){
+  const todayWd=isoWd(new Date());
+  const dl=document.getElementById('cn-hours');dl.innerHTML='';
+  DAYS_EL.forEach((d,i)=>{
+    const dt=document.createElement('dt'),dd=document.createElement('dd');
+    dt.textContent=d;
+    const parts=winParts(S.sched[i]);
+    if(!parts.length){dd.textContent='Κλειστά';dd.style.color='var(--gray2)';}
+    else dd.textContent=parts.map(p=>`${p[0]}–${p[1]}`).join(' · ');
+    if(i===todayWd){dt.classList.add('today');dd.classList.add('today');}
+    dl.appendChild(dt);dl.appendChild(dd);
+  });
+  const now=new Date(),minutes=now.getHours()*60+now.getMinutes();
+  const today=winParts(S.sched[todayWd]);
+  let openNow=today.some(p=>{const[a,b]=p;const[oh,om]=a.split(':').map(Number);const[ch,cm]=b.split(':').map(Number);return minutes>=oh*60+om&&minutes<ch*60+cm;});
+  document.getElementById('open-dot').classList.toggle('off',!openNow);
+  if(today.length){document.getElementById('open-status').textContent=openNow?'Ανοιχτά τώρα':'Κλειστά τώρα';document.getElementById('open-hours').textContent=today.map(p=>`${p[0]}–${p[1]}`).join(' · ');}
+  else{document.getElementById('open-status').textContent='Κλειστά';document.getElementById('open-hours').textContent='Σήμερα';}
+}
+
+function toRoman(n){const m=['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];return m[n]||String(n)}
+
+function renderSvcs(){
+  document.getElementById('svc-list').innerHTML=S.svcs.map((s,i)=>`
+    <div class="svc-row" id="sc${s.id}" onclick="toggleSvc(${s.id})">
+      <div class="svc-num">${toRoman(i+1)}.</div>
+      <div>
+        <div class="svc-name-wrap"><span class="svc-name">${s.name}</span><span class="svc-leader"></span></div>
+        <div class="svc-desc">${s.description||''}<span class="svc-dur-inline">· ${s.duration_minutes}′</span></div>
+      </div>
+      <div class="svc-price"><span class="euro">€</span>${(+s.price).toFixed(0)}</div>
+    </div>`).join('');
+}
+
+function toggleSvc(id){
+  const i=S.selSvcs.indexOf(id);
+  i>-1?S.selSvcs.splice(i,1):S.selSvcs.push(id);
+  document.getElementById('sc'+id).classList.toggle('sel',S.selSvcs.includes(id));
+  S.selSlot=null;
+  const sel=S.selSvcs.map(x=>S.svcs.find(s=>s.id===x)).filter(Boolean);
+  const tot=sel.reduce((a,s)=>a+(+s.price),0);
+  const dur=sel.reduce((a,s)=>a+s.duration_minutes,0);
+  document.getElementById('sel-count').textContent=sel.length;
+  document.getElementById('sel-total').textContent='€'+tot.toFixed(2);
+  document.getElementById('sel-dur').textContent=dur;
+  document.getElementById('svc-cta').classList.toggle('on',sel.length>0);
+  document.getElementById('bk-total').textContent='€'+tot.toFixed(0);
+  document.getElementById('bk-next').disabled=updateNextDisabled();
+}
+
+function renderBarbers(){
+  let html=`<div class="bk-barber any" id="bcany" onclick="selBarber('any')">
+      <div class="bk-bavatar">✶</div>
+      <div class="bk-bname">Οποιοσδήποτε</div>
+      <div class="bk-bbio">Ο πρώτος διαθέσιμος κουρέας</div>
+    </div>`;
+  html+=S.barbers.map(b=>`
+    <div class="bk-barber" id="bc${b.id}" onclick="selBarber(${b.id})">
+      <div class="bk-bavatar">${b.photo_url?`<img src="${b.photo_url}" alt="${b.name}">`:'✂'}</div>
+      <div class="bk-bname">${b.name}</div>
+      ${b.bio?`<div class="bk-bbio">${b.bio}</div>`:''}
+    </div>`).join('');
+  document.getElementById('bk-barbers').innerHTML=html;
+}
+
+function selBarber(id){
+  S.selBarber=id;S.selSlot=null;
+  document.querySelectorAll('.bk-barber').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('bc'+id).classList.add('sel');
+  document.getElementById('bk-next').disabled=updateNextDisabled();
+}
+
+function renderDateRail(){
+  const rail=document.getElementById('date-rail');
+  const advance=parseInt(S.cfg.booking_advance_days||30);
+  const today=new Date();today.setHours(0,0,0,0);
+  const cells=[];
+  for(let i=0;i<Math.min(advance,14);i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const wd=isoWd(d);
+    cells.push({d,wd,closed:!winParts(S.sched[wd]).length});
+  }
+  rail.innerHTML=cells.map(c=>{
+    const iso=`${c.d.getFullYear()}-${String(c.d.getMonth()+1).padStart(2,'0')}-${String(c.d.getDate()).padStart(2,'0')}`;
+    return `<div class="date-cell ${c.closed?'closed':''}" ${c.closed?'':`onclick="selDate('${iso}',this)"`}>
+      <span class="dc-w">${DAYS_EL_SHORT[c.wd]}</span><span class="dc-d">${c.d.getDate()}</span><span class="dc-m">${MONTHS_EL[c.d.getMonth()]}</span>
+    </div>`;
+  }).join('');
+}
+
+function selDate(iso,el){
+  S.selDate=iso;S.selSlot=null;
+  document.querySelectorAll('.date-cell').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('bk-next').disabled=updateNextDisabled();
+}
+
+async function loadSlots(){
+  if(!S.selDate) return;
+  const cont=document.getElementById('slots-shifts'),spin=document.getElementById('slots-spin');
+  cont.innerHTML='';spin.style.display='inline-block';S.selSlot=null;
+  document.getElementById('bk-next').disabled=true;
+  try{
+    const r=await fetch(`/api/availability?date=${S.selDate}&barber_id=${S.selBarber}&service_ids=${S.selSvcs.join(',')}`);
+    const slots=await r.json();spin.style.display='none';
+    if(!Array.isArray(slots)||!slots.length){cont.innerHTML='<p class="slot-empty">Δεν υπάρχουν διαθέσιμες ώρες για αυτή την ημέρα.</p>';return;}
+    const morn=slots.filter(t=>parseInt(t)<14),aft=slots.filter(t=>parseInt(t)>=14);
+    let html='';
+    if(morn.length)html+=`<div class="shift-block"><div class="shift-h">Πρωί</div><div class="slots-grid">${morn.map(t=>`<button class="slot" onclick="selSlot('${t}',this)">${t}</button>`).join('')}</div></div>`;
+    if(aft.length)html+=`<div class="shift-block"><div class="shift-h">Απόγευμα / Βράδυ</div><div class="slots-grid">${aft.map(t=>`<button class="slot" onclick="selSlot('${t}',this)">${t}</button>`).join('')}</div></div>`;
+    cont.innerHTML=html;
+  }catch(e){spin.style.display='none';cont.innerHTML='<p class="slot-empty" style="color:var(--err)">Πρόβλημα φόρτωσης. Δοκιμάστε ξανά.</p>';}
+}
+
+function selSlot(t,el){
+  S.selSlot=t;
+  document.querySelectorAll('.slot').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('bk-next').disabled=updateNextDisabled();
+}
+
+function barberName(){if(S.selBarber==='any')return 'Οποιοσδήποτε διαθέσιμος';const b=S.barbers.find(x=>x.id===S.selBarber);return b?b.name:'—';}
+function buildSum(){
+  const sel=S.selSvcs.map(id=>S.svcs.find(s=>s.id===id)).filter(Boolean);
+  const tot=sel.reduce((a,s)=>a+(+s.price),0);
+  return `
+    <div class="sum-row"><span class="sum-lbl">Κουρέας</span><span class="sum-val">${barberName()}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Ημερομηνία</span><span class="sum-val">${S.selDate}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Ώρα</span><span class="sum-val">${S.selSlot}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Υπηρεσίες</span><span class="sum-val">${sel.map(s=>s.name).join(', ')}</span></div>
+    <div class="sum-row sum-total"><span class="sum-lbl">Σύνολο</span><span class="sum-val">€${tot.toFixed(2)}</span></div>`;
+}
+
+function updateNextDisabled(){
+  if(S.step===1)return !S.selSvcs.length;
+  if(S.step===2)return !S.selBarber;
+  if(S.step===3)return !S.selDate;
+  if(S.step===4)return !S.selSlot;
+  return false;
+}
+
+function onNext(){if(S.step===5)return sendOtp();if(S.step===6)return confirmBk();go(S.step+1);}
+
+function go(step){
+  if(step>S.step){
+    if(S.step===1&&!S.selSvcs.length){showErr('e1','Επίλεξε τουλάχιστον μία υπηρεσία.');return}
+    if(S.step===2&&!S.selBarber){showErr('e2','Επίλεξε κουρέα.');return}
+    if(S.step===3&&!S.selDate){showErr('e3','Διάλεξε ημερομηνία.');return}
+    if(S.step===4&&!S.selSlot){showErr('e4','Διάλεξε ώρα.');return}
+  }
+  S.step=step;
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('act'));
+  document.getElementById('sp-'+step).classList.add('act');
+  document.querySelectorAll('#steps-strip span[data-s]').forEach(it=>{const n=+it.dataset.s;it.classList.remove('act','done');if(n===step)it.classList.add('act');else if(n<step)it.classList.add('done');});
+  const btn=document.getElementById('bk-next');btn.disabled=updateNextDisabled();btn.style.display='';
+  if(step===5){document.getElementById('sum-box').innerHTML=buildSum();btn.textContent='Αποστολή Κωδικού';setMethod(method);}
+  else if(step===6){btn.textContent='Επιβεβαίωση Κράτησης';}
+  else{btn.textContent='Συνέχεια';}
+  if(step===4)loadSlots();
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),4000);}
+
+async function sendOtp(){
+  const name=document.getElementById('cust-name').value.trim();
+  const phone=document.getElementById('cust-phone').value.trim().replace(/\s+/g,'');
+  if(!name){showErr('e5','Συμπλήρωσε το όνομά σου.');return}
+  if(!/^\+[1-9]\d{7,14}$/.test(phone)){showErr('e5','Συμπλήρωσε έγκυρο κινητό σε διεθνή μορφή (+30…).');return}
+  S.phone=phone;
+  const btn=document.getElementById('bk-next');btn.disabled=true;btn.textContent='Στέλνουμε...';
+  go(6);
+  document.getElementById('vc-status-text').textContent='Στέλνουμε τον κωδικό...';
+  document.getElementById('vc-phone').textContent='Προς '+phone;
+  document.getElementById('vc-code').classList.remove('show');
+  try{
+    const r=await fetch('/api/booking/initiate',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({barber_id:S.selBarber,date:S.selDate,start_time:S.selSlot,service_ids:S.selSvcs,customer_name:name,customer_phone:phone})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||'Αποτυχία αποστολής');
+    setTimeout(()=>{
+      document.getElementById('vc-status-text').textContent='Κωδικός εστάλη';
+      if(d.delivered_via==='self'&&d.reveal_code){const c=document.getElementById('vc-code');c.textContent=d.reveal_code;c.classList.add('show');}
+      else{document.getElementById('vc-phone').textContent='Ελέγξτε το SMS στο '+phone;}
+    },1500);
+  }catch(e){showErr('e6',e.message);document.getElementById('vc-status-text').textContent='Αποτυχία αποστολής';}
+  finally{btn.disabled=false;btn.textContent='Επιβεβαίωση Κράτησης';}
+}
+
+async function confirmBk(){
+  const code=document.getElementById('otp-in').value.trim();
+  if(code.length<4){showErr('e6','Συμπλήρωσε τον 4-ψήφιο κωδικό.');return}
+  const btn=document.getElementById('bk-next');btn.disabled=true;btn.textContent='Επαλήθευση...';
+  try{
+    const r=await fetch('/api/booking/verify',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({customer_phone:S.phone,otp_code:code})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||'Λάθος κωδικός');
+    showSuccess(d.appointment);
+  }catch(e){showErr('e6',e.message);}
+  finally{btn.disabled=false;btn.textContent='Επιβεβαίωση Κράτησης';}
+}
+
+function showSuccess(a){
+  document.getElementById('steps-strip').style.display='none';
+  document.getElementById('bk-foot').style.display='none';
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('act'));
+  document.getElementById('suc').classList.add('on');
+  const svcs=(a.services||[]).map(s=>s.service_name||s.name).join(', ');
+  document.getElementById('suc-card').innerHTML=`
+    <div class="sum-row"><span class="sum-lbl">Κουρέας</span><span class="sum-val">${a.barber_name||'—'}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Ημερομηνία</span><span class="sum-val">${a.date}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Ώρα</span><span class="sum-val">${a.start_time} – ${a.end_time}</span></div>
+    <div class="sum-row"><span class="sum-lbl">Υπηρεσίες</span><span class="sum-val">${svcs}</span></div>
+    <div class="sum-row sum-total"><span class="sum-lbl">Σύνολο</span><span class="sum-val">€${(+(a.total_price||0)).toFixed(2)}</span></div>`;
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── Verification method picker (SMS ⇄ Facebook) ── */
+let method='sms';
+function setMethod(m){
+  method=m;
+  document.getElementById('mtab-sms').classList.toggle('on',m==='sms');
+  document.getElementById('mtab-fb').classList.toggle('on',m==='fb');
+  document.getElementById('method-sms').style.display=m==='sms'?'block':'none';
+  document.getElementById('method-fb').style.display=m==='fb'?'block':'none';
+  // SMS uses the footer "send code" button; Facebook has its own button.
+  document.getElementById('bk-next').style.display=m==='sms'?'':'none';
+}
+
+/* ── Facebook login (needs a real FACEBOOK_APP_ID; skips SMS) ── */
+let FB_READY=false,FB_CONFIGURED=false;
+async function loadFb(){
+  try{
+    const {appId,version}=await (await fetch('/api/fb-app-id')).json();
+    if(!appId){
+      document.getElementById('fb-note').textContent='Η σύνδεση με Facebook δεν έχει ρυθμιστεί ακόμη — χρησιμοποίησε SMS.';
+      document.getElementById('fb-btn').disabled=true;
+      return;
+    }
+    FB_CONFIGURED=true;
+    window.fbAsyncInit=function(){FB.init({appId,cookie:true,xfbml:false,version:version||'v21.0'});FB_READY=true;};
+    const s=document.createElement('script');s.src='https://connect.facebook.net/en_US/sdk.js';s.async=true;s.defer=true;document.head.appendChild(s);
+  }catch(e){}
+}
+function fbBook(){
+  if(!FB_CONFIGURED){showErr('e5','Η σύνδεση με Facebook δεν έχει ρυθμιστεί.');return}
+  if(!FB_READY){showErr('e5','Το Facebook φορτώνει ακόμη, δοκίμασε ξανά.');return}
+  if(!S.selSlot){showErr('e5','Διάλεξε ώρα πρώτα.');return}
+  const phone=document.getElementById('fb-phone').value.trim().replace(/\s+/g,'');
+  if(phone&&!/^\+[1-9]\d{7,14}$/.test(phone)){showErr('e5','Το κινητό να είναι σε διεθνή μορφή (+30…) ή άφησέ το κενό.');return}
+  const btn=document.getElementById('fb-btn');btn.disabled=true;
+  FB.login(resp=>{
+    if(resp.status!=='connected'){btn.disabled=false;showErr('e5','Η σύνδεση Facebook ακυρώθηκε.');return;}
+    fetch('/api/booking/fb-confirm',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({access_token:resp.authResponse.accessToken,barber_id:S.selBarber,date:S.selDate,start_time:S.selSlot,service_ids:S.selSvcs,customer_phone:phone||null})})
+      .then(r=>r.json().then(d=>({ok:r.ok,d})))
+      .then(({ok,d})=>{if(!ok)throw new Error(d.error||'Σφάλμα');showSuccess(d.appointment);})
+      .catch(e=>showErr('e5',e.message))
+      .finally(()=>btn.disabled=false);
+  },{scope:'public_profile'});
+}
+
+init();
+</script>
 </body>
 </html>
