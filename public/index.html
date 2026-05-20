@@ -142,13 +142,70 @@ section{padding:110px 32px;position:relative}
 .svc-cta-pill strong{color:var(--tan);font-size:22px}
 .svc-cta-pill a{font-family:var(--headline);font-weight:700;font-size:12px;letter-spacing:.22em;padding:10px 22px;background:var(--white);color:var(--black);text-transform:uppercase;transition:all .2s}
 .svc-cta-pill a:hover{background:var(--tan);color:var(--white)}
-@media(max-width:640px){.svc-row{grid-template-columns:46px 1fr auto;gap:14px;padding:18px 16px}.svc-name{font-size:18px}.svc-desc{font-size:12px;grid-column:2}.svc-price{font-size:22px}}
-.gallery{background:var(--black);border-top:1px solid var(--border)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-.g{aspect-ratio:1;overflow:hidden;position:relative}
-.g.wide{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-.g img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:filter .7s ease,transform .8s ease}
-.g:hover img{filter:grayscale(0);transform:scale(1.06)}
+
+.gallery { background: var(--black); border-top: 1px solid var(--border); }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+
+.g { aspect-ratio: 1; overflow: hidden; position: relative; }
+/* The aspect-ratio: 1 here is the magic fix that stops the PC grid from breaking */
+.g.wide { grid-column: span 2; grid-row: span 2; aspect-ratio: 1; } 
+
+.g img { 
+  width: 100%; height: 100%; object-fit: cover; 
+  filter: grayscale(1) contrast(1.08); 
+  transition: filter .7s ease, transform .8s ease; 
+}
+.g:hover img { filter: grayscale(0); transform: scale(1.06); }
+
+@media(max-width:640px) {
+  /* Typography & Layout Spacing */
+  section { padding: 60px 16px; }
+  .sec-title { font-size: clamp(32px, 8vw, 42px); }
+  .hero h1 { font-size: clamp(40px, 12vw, 56px); }
+
+  /* About Section */
+  .about-meta { flex-direction: column; gap: 24px; padding-top: 24px; }
+
+  /* Services Menu */
+  .svc-menu { padding: 24px 16px; }
+  .svc-row { grid-template-columns: 30px 1fr auto; gap: 10px; padding: 16px 4px; }
+  .svc-name { font-size: 15px; white-space: normal; line-height: 1.3; }
+  .svc-leader { display: none; } /* Hide dotted line on mobile to prevent squishing */
+  .svc-desc { grid-column: 1 / -1; margin-top: 8px; font-size: 13px; }
+  .svc-dur-inline { display: block; margin-left: 0; margin-top: 4px; }
+  .svc-price { font-size: 18px; }
+
+  /* Call to Action Bar */
+  .svc-cta-pill { flex-direction: column; padding: 16px; width: 100%; gap: 14px; text-align: center; }
+  .svc-cta-pill a { width: 100%; box-sizing: border-box; }
+
+  /* Gallery */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .g.wide { grid-column: span 2; grid-row: span 2; aspect-ratio: 1; }
+
+  /* Booking System */
+  .step-panel { padding: 32px 16px; }
+  .steps-strip { 
+    padding: 16px; 
+    gap: 8px; 
+    justify-content: flex-start; 
+    overflow-x: auto; /* Allow swiping horizontally */
+    flex-wrap: nowrap; 
+    white-space: nowrap; 
+  } 
+  .steps-strip::-webkit-scrollbar { display: none; } /* Hide scrollbar for clean look */
+  .bk-foot { flex-direction: column; justify-content: center; text-align: center; gap: 16px; padding: 20px 16px; }
+  .bk-next { width: 100%; }
+
+  /* Success Card fix (prevent horizontal scroll) */
+  .suc-card { min-width: 100%; padding: 24px 16px; box-sizing: border-box; }
+
+  /* Contact & Footer */
+  .contact-info { padding: 32px 16px; }
+  .hours-list dt, .hours-list dd { font-size: 13px; }
+  .footer-grid { flex-direction: column; text-align: center; gap: 32px; }
+  .foot-rt { text-align: center; }
+}
 @media(max-width:768px){.gallery-grid{grid-template-columns:repeat(2,1fr)}.g.wide{grid-column:span 2;grid-row:auto;aspect-ratio:16/10}}
 #booking{background:var(--black);border-top:1px solid var(--border);min-height:80vh}
 .booking-card{background:var(--black2);border:1px solid var(--border);max-width:920px;margin:0 auto;position:relative;min-height:520px}
@@ -173,6 +230,17 @@ section{padding:110px 32px;position:relative}
 .bk-bavatar{width:62px;height:62px;border-radius:50%;margin:0 auto 12px;overflow:hidden;background:var(--black3);display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:22px}
 .bk-bavatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4)}
 .bk-barber.any .bk-bavatar{background:var(--tan-dim);color:var(--tan)}
+/* Compact Service Selection in Booking Step 1 */
+.bk-svcs { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.bk-svc-row { background: var(--black); border: 1px solid var(--border2); padding: 14px 18px; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bk-svc-row:hover { border-color: var(--tan); }
+.bk-svc-row.sel { background: var(--white); border-color: var(--white); }
+.bk-svc-info { display: flex; flex-direction: column; gap: 2px; }
+.bk-svc-name { font-family: var(--headline); font-size: 14px; color: var(--white); letter-spacing: .05em; text-transform: uppercase; }
+.bk-svc-dur { font-family: var(--body); font-size: 12px; color: var(--gray); }
+.bk-svc-price { font-family: var(--headline); font-size: 16px; font-weight: 600; color: var(--tan); }
+.bk-svc-row.sel .bk-svc-name, .bk-svc-row.sel .bk-svc-price { color: var(--black); }
+.bk-svc-row.sel .bk-svc-dur { color: var(--gray2); }
 .bk-bname{font-family:var(--headline);font-size:15px;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
 .bk-bbio{font-family:var(--body);font-size:12px;color:var(--gray);margin-top:4px;font-weight:300;line-height:1.4}
 .date-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px;margin-bottom:36px}
@@ -421,7 +489,7 @@ footer{background:var(--black);padding:48px 32px;border-top:1px solid var(--bord
 
       <div class="step-panel act" id="sp-1">
         <h3 class="step-h">Επιλέξε Υπηρεσίες</h3>
-        <p style="color:var(--gray);font-size:14px;margin-bottom:20px">Διάλεξε από τη λίστα πιο πάνω. Μπορείς να επιλέξεις όσες θέλεις.</p>
+        <div class="bk-svcs" id="bk-svc-list"></div>
         <p class="err" id="e1">Επίλεξε τουλάχιστον μία υπηρεσία.</p>
       </div>
 
@@ -609,6 +677,7 @@ function renderHours(){
 function toRoman(n){const m=['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];return m[n]||String(n)}
 
 function renderSvcs(){
+  // Main section render
   document.getElementById('svc-list').innerHTML=S.svcs.map((s,i)=>`
     <div class="svc-row" id="sc${s.id}" onclick="toggleSvc(${s.id})">
       <div class="svc-num">${toRoman(i+1)}.</div>
@@ -618,12 +687,29 @@ function renderSvcs(){
       </div>
       <div class="svc-price"><span class="euro">€</span>${(+s.price).toFixed(0)}</div>
     </div>`).join('');
+
+  // Booking section render
+  document.getElementById('bk-svc-list').innerHTML=S.svcs.map(s=>`
+    <div class="bk-svc-row" id="bsc${s.id}" onclick="toggleSvc(${s.id})">
+      <div class="bk-svc-info">
+        <span class="bk-svc-name">${s.name}</span>
+        <span class="bk-svc-dur">${s.duration_minutes}′</span>
+      </div>
+      <div class="bk-svc-price">€${(+s.price).toFixed(0)}</div>
+    </div>`).join('');
 }
 
 function toggleSvc(id){
   const i=S.selSvcs.indexOf(id);
   i>-1?S.selSvcs.splice(i,1):S.selSvcs.push(id);
-  document.getElementById('sc'+id).classList.toggle('sel',S.selSvcs.includes(id));
+  
+  // Toggle the selection state on BOTH lists
+  const mainRow = document.getElementById('sc'+id);
+  if (mainRow) mainRow.classList.toggle('sel', S.selSvcs.includes(id));
+  
+  const bkRow = document.getElementById('bsc'+id);
+  if (bkRow) bkRow.classList.toggle('sel', S.selSvcs.includes(id));
+
   S.selSlot=null;
   const sel=S.selSvcs.map(x=>S.svcs.find(s=>s.id===x)).filter(Boolean);
   const tot=sel.reduce((a,s)=>a+(+s.price),0);
